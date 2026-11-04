@@ -40,55 +40,67 @@ $usuario_actual = $_SESSION['usuario'];
   <div class="floating-element fe-5">🎒</div>
   <div class="floating-element fe-6">✏️</div>
 
-  <!-- CONTENEDOR PRINCIPAL DEL PERFIL -->
-  <div class="dashboard-container">
+  <!-- CONTENEDOR PRINCIPAL (1/3 IZQUIERDA Y 2/3 DERECHA VERTICAL) -->
+  <div class="dashboard-split-layout">
     
-    <!-- Tarjeta de Bienvenida -->
-    <div class="welcome-card">
-      <div class="welcome-info">
-        <h1>¡Hola, <?php echo htmlspecialchars($usuario_actual); ?>! 👋</h1>
-        <p>Bienvenido a tu panel de exploración en penguich</p>
-      </div>
-      <div class="user-avatar">🐧</div>
-    </div>
+    <!-- COLUMNA IZQUIERDA (1/3): IMAGEN GRANDE + BIENVENIDA -->
+    <aside class="columna-imagen-33">
+      <div>
+        <!-- CONTENEDOR DE LA IMAGEN GRANDE (Aquí luego pones tu <img src="...">) -->
+        <div class="contenedor-imagen-grande">
+          <!-- Ejemplo con icono, reemplázalo después por: <img src="tu-imagen.jpg" alt="Ilustración"> -->
+          <span style="font-size: 5rem;">🐧✨</span>
+        </div>
 
-    <!-- Secciones del Panel -->
-    <div class="dashboard-grid">
+        <h2>¡Hola, <?php echo htmlspecialchars($usuario_actual); ?>! 👋</h2>
+        <p>Bienvenido a tu panel de exploración en <strong>penguich</strong>. Descubre y potencia tus talentos.</p>
+      </div>
+
+      <div style="border-top: 2px solid #EDF2F7; padding-top: 15px;">
+        <a href="logout.php" class="btn-logout" style="display: block; width: 100%; box-sizing: border-box;">Cerrar Sesión</a>
+      </div>
+    </aside>
+
+    <!-- COLUMNA DERECHA (2/3): BLOQUES DE OPCIONES EN MODO VERTICAL -->
+    <main class="columna-botones-67">
       
-      <!-- Sección: Actividades -->
-      <div class="dash-card">
-        <h3>🎯 Actividades</h3>
-        <p>Realiza divertidos retos diarios para medir tus destrezas y agilidad mental.</p>
-        <a href="actividades.php" class="btn-card">Ver Actividades</a>
+      <!-- Opción 1: Actividades -->
+      <div class="dash-card-vertical">
+        <div class="card-info-text">
+          <h3>🎯 Actividades</h3>
+          <p>Realiza divertidos retos diarios para medir tus destrezas y agilidad mental.</p>
+        </div>
+        <a href="actividades.php" class="btn-card" style="white-space: nowrap;">Ver Actividades</a>
       </div>
 
-      <!-- Sección: Aptitudes Descubiertas -->
-      <div class="dash-card">
-        <h3>⭐ Aptitudes Descubiertas</h3>
-        <p>Explora las medallas, talentos y habilidades que has ido desbloqueando.</p>
-        <a href="aptitudes.php" class="btn-card yellow">Ver Mis Talentos</a>
+      <!-- Opción 2: Aptitudes Descubiertas -->
+      <div class="dash-card-vertical">
+        <div class="card-info-text">
+          <h3>⭐ Aptitudes Descubiertas</h3>
+          <p>Explora las medallas, talentos y habilidades que has ido desbloqueando.</p>
+        </div>
+        <a href="aptitudes.php" class="btn-card yellow" style="white-space: nowrap;">Ver Mis Talentos</a>
       </div>
 
-      <!-- Sección: Seguir Buscando -->
-      <div class="dash-card">
-        <h3>🔍 Seguir Buscando</h3>
-        <p>Inicia un nuevo test o busca nuevas áreas de interés y habilidades ocultas.</p>
-        <a href="usuario.php" class="btn-card">Buscar Aptitudes</a>
+      <!-- Opción 3: Seguir Buscando -->
+      <div class="dash-card-vertical">
+        <div class="card-info-text">
+          <h3>🔍 Seguir Buscando</h3>
+          <p>Inicia un nuevo test o busca nuevas áreas de interés y habilidades ocultas.</p>
+        </div>
+        <a href="usuario.php" class="btn-card" style="white-space: nowrap;">Buscar Aptitudes</a>
       </div>
 
-      <!-- Sección: Más Herramientas -->
-      <div class="dash-card">
-        <h3>🛠️ Más Herramientas</h3>
-        <p>Configuraciones de perfil, reportes para tutores y guías de aprendizaje.</p>
-        <a href="herramientas.php" class="btn-card yellow">Explorar Herramientas</a>
+      <!-- Opción 4: Más Herramientas -->
+      <div class="dash-card-vertical">
+        <div class="card-info-text">
+          <h3>🛠️ Más Herramientas</h3>
+          <p>Configuraciones de perfil, reportes para tutores y guías de aprendizaje.</p>
+        </div>
+        <a href="herramientas.php" class="btn-card yellow" style="white-space: nowrap;">Explorar Herramientas</a>
       </div>
 
-    </div>
-
-    <!-- Botón de Cerrar Sesión -->
-    <div class="logout-container">
-      <a href="logout.php" class="btn-logout">Cerrar Sesión</a>
-    </div>
+    </main>
 
   </div>
 

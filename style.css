@@ -778,3 +778,277 @@ body {
 .btn-logout:hover {
   background: #F5C2C7;
 }
+
+/* --- ESTILOS MEJORADOS PARA EL PANEL DE USUARIO (DASHBOARD) --- */
+
+.dashboard-container {
+  width: 100%;
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 0 20px;
+  box-sizing: border-box;
+  z-index: 10;
+  position: relative;
+}
+
+/* Tarjeta de Bienvenida */
+.welcome-card {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 24px;
+  padding: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+  margin-bottom: 30px;
+  border: 3px solid #E8EEF5;
+  backdrop-filter: blur(10px);
+}
+
+.welcome-info h1 {
+  margin: 0 0 8px 0;
+  font-size: 2rem;
+  color: #2D3748;
+  font-weight: 800;
+}
+
+.welcome-info p {
+  margin: 0;
+  color: #718096;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.user-avatar {
+  font-size: 3.5rem;
+  background: #EBF8FF;
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  box-shadow: inset 0 2px 5px rgba(0,0,0,0.05);
+  border: 2px dashed #3182CE;
+}
+
+/* Cuadrícula de Secciones */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.dash-card {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 20px;
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+  border: 2px solid #EDF2F7;
+  transition: all 0.3s ease;
+}
+
+.dash-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.1);
+  border-color: #63B3ED;
+}
+
+.dash-card h3 {
+  margin-top: 0;
+  margin-bottom: 12px;
+  color: #2D3748;
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+.dash-card p {
+  color: #718096;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin-bottom: 20px;
+  flex-grow: 1;
+}
+
+/* Botones dentro de las tarjetas */
+.btn-card {
+  display: inline-block;
+  background-color: #3182CE;
+  color: white;
+  text-align: center;
+  padding: 12px 20px;
+  border-radius: 12px;
+  text-decoration: none;
+  font-weight: 700;
+  box-shadow: 0 4px 12px rgba(49, 130, 206, 0.3);
+  transition: background-color 0.2s, transform 0.1s;
+}
+
+.btn-card:hover {
+  background-color: #2B6CB0;
+}
+
+.btn-card.yellow {
+  background-color: #D69E2E;
+  box-shadow: 0 4px 12px rgba(214, 158, 46, 0.3);
+}
+
+.btn-card.yellow:hover {
+  background-color: #B7791F;
+}
+
+/* Contenedor y Botón de Cerrar Sesión */
+.logout-container {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.btn-logout {
+  display: inline-block;
+  background-color: #FFF5F5;
+  color: #E53E3E;
+  border: 2px solid #FEB2B2;
+  padding: 12px 30px;
+  border-radius: 14px;
+  text-decoration: none;
+  font-weight: 700;
+  transition: all 0.2s ease;
+}
+
+.btn-logout:hover {
+  background-color: #E53E3E;
+  color: white;
+  border-color: #E53E3E;
+  box-shadow: 0 4px 12px rgba(229, 62, 62, 0.3);
+}
+
+/* Responsividad para celulares */
+@media (max-width: 600px) {
+  .welcome-card {
+    flex-direction: column-reverse;
+    text-align: center;
+    gap: 15px;
+  }
+}
+
+/* --- LAYOUT DIVIDIDO: 1/3 IZQUIERDA Y 2/3 DERECHA VERTICAL --- */
+
+.dashboard-split-layout {
+  display: flex !important;
+  flex-direction: row !important;
+  max-width: 1200px !important;
+  margin: 30px auto !important;
+  padding: 0 20px !important;
+  gap: 30px !important;
+  align-items: stretch !important;
+  box-sizing: border-box !important;
+}
+
+/* Columna Izquierda: Ocupa 1/3 (aprox 33%) para la gran imagen y bienvenida */
+.columna-imagen-33 {
+  flex: 0 0 33% !important;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 24px;
+  padding: 30px 20px;
+  text-align: center;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+  border: 3px solid #E8EEF5;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+
+.contenedor-imagen-grande {
+  width: 100%;
+  height: 260px;
+  background: #EBF8FF;
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 3px dashed #3182CE;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.contenedor-imagen-grande img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.columna-imagen-33 h2 {
+  font-size: 1.5rem;
+  color: #2D3748;
+  margin: 0 0 10px 0;
+  font-weight: 800;
+}
+
+.columna-imagen-33 p {
+  color: #718096;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+
+/* Columna Derecha: Ocupa 2/3 (aprox 67%) para los botones en modo vertical */
+.columna-botones-67 {
+  flex: 0 0 67% !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 15px !important;
+  box-sizing: border-box !important;
+}
+
+.dash-card-vertical {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 20px;
+  padding: 20px 25px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+  border: 2px solid #EDF2F7;
+  transition: all 0.3s ease;
+}
+
+.dash-card-vertical:hover {
+  transform: translateX(5px);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.08);
+  border-color: #63B3ED;
+}
+
+.card-info-text {
+  flex: 1;
+  padding-right: 20px;
+}
+
+.card-info-text h3 {
+  margin: 0 0 5px 0;
+  color: #2D3748;
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+.card-info-text p {
+  margin: 0;
+  color: #718096;
+  font-size: 0.88rem;
+  line-height: 1.4;
+}
+
+/* Responsivo para pantallas pequeñas */
+@media (max-width: 900px) {
+  .dashboard-split-layout {
+    flex-direction: column !important;
+  }
+  .columna-imagen-33, .columna-botones-67 {
+    flex: 100% !important;
+    width: 100% !important;
+  }
+}
