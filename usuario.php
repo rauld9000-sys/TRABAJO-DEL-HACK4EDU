@@ -60,7 +60,7 @@ $usuario_id = hash('sha256', (string) $_SESSION['usuario']);
             </select>
         </label>
 
-        <a href="reporte_tutores.php" class="pg-btn pg-light">
+        <a href="tutores.php" class="pg-btn pg-light">
             📄 Tutores
         </a>
 
