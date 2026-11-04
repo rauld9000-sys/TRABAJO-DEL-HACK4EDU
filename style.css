@@ -1,0 +1,780 @@
+/* ==========================================
+   1. VARIABLES DE COLOR Y ACCESIBILIDAD
+   ========================================== */
+:root {
+  /* Modo Estándar (WCAG AA Contraste Alto) */
+  --bg-color: #F0F4F8;          /* Fondo blanco hueso / azul muy claro (evita deslumbramiento) */
+  --card-bg: #FFFFFF;           /* Fondo de contenedores */
+  --text-main: #1D2A44;         /* Texto principal oscuro para alta legibilidad */
+  --text-muted: #4B5563;        /* Texto secundario */
+  --primary: #4361EE;           /* Azul amigable / Estructural */
+  --primary-hover: #3B52C9;
+  --accent-orange: #FF9F1C;     /* Naranja cálido (estimulante y lúdico para niños) */
+  --accent-orange-hover: #E08810;
+  --border-color: #CBD5E1;
+  --input-bg: #F8FAFC;
+  --focus-ring: #4361EE;
+}
+
+/* ------------------------------------------
+   Ajustes de Paleta para Daltonismo
+   ------------------------------------------ */
+/* Protanopía (Red-Blind / Dificultad con Rojos) */
+body.protanopia {
+  --primary: #0077B6;
+  --primary-hover: #023E8A;
+  --accent-orange: #D97706;
+  --accent-orange-hover: #B45309;
+  --focus-ring: #0077B6;
+}
+
+/* Deuteranopía (Green-Blind / Dificultad con Verdes) */
+body.deuteranopia {
+  --primary: #0284C7;
+  --primary-hover: #0369A1;
+  --accent-orange: #C05621;
+  --accent-orange-hover: #9C4221;
+  --focus-ring: #0284C7;
+}
+
+/* Tritanopía (Blue-Blind / Dificultad con Azules) */
+body.tritanopia {
+  --primary: #059669;
+  --primary-hover: #047857;
+  --accent-orange: #DC2626;
+  --accent-orange-hover: #B91C1C;
+  --focus-ring: #059669;
+}
+
+/* ==========================================
+   2. REINICIO Y ESTILOS GLOBALES
+   ========================================== */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Nunito', sans-serif; /* Tipografía accesible para dislexia y lectura infantil */
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-main);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* ==========================================
+   3. BARRA SUPERIOR DE ACCESIBILIDAD
+   ========================================== */
+.accessibility-bar {
+  position: fixed;
+  top: 15px;
+  background: var(--card-bg);
+  padding: 10px 20px;
+  border-radius: 50px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  z-index: 100;
+  border: 2px solid var(--border-color);
+}
+
+.accessibility-bar label {
+  font-weight: 700;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.accessibility-bar select {
+  padding: 6px 12px;
+  border-radius: 20px;
+  border: 2px solid var(--primary);
+  font-weight: 600;
+  color: var(--text-main);
+  background-color: var(--input-bg);
+  cursor: pointer;
+  outline: none;
+}
+
+/* ==========================================
+   4. TARJETA DE LOGIN Y CONTENEDOR
+   ========================================== */
+.login-container {
+  background: var(--card-bg);
+  width: 100%;
+  max-width: 440px;
+  padding: 35px 30px;
+  border-radius: 24px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+  border: 3px solid var(--border-color);
+  margin-top: 60px;
+}
+
+.header-logo {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.header-logo h1 {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.header-logo p {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  margin-top: 6px;
+  font-weight: 600;
+}
+
+/* ==========================================
+   5. FORMULARIOS E INPUTS
+   ========================================== */
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  font-weight: 700;
+  margin-bottom: 8px;
+  font-size: 1rem;
+  color: var(--text-main);
+}
+
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-wrapper input {
+  width: 100%;
+  padding: 14px 16px;
+  border: 2px solid var(--border-color);
+  background-color: var(--input-bg);
+  border-radius: 14px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-main);
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.input-wrapper input:focus {
+  border-color: var(--focus-ring);
+  box-shadow: 0 0 0 4px rgba(67, 97, 238, 0.15);
+  background-color: #FFFFFF;
+}
+
+/* ==========================================
+   6. BOTONES Y ENLACES
+   ========================================== */
+.btn-primary {
+  width: 100%;
+  padding: 15px;
+  background-color: var(--accent-orange);
+  color: #FFFFFF;
+  border: none;
+  border-radius: 16px;
+  font-size: 1.1rem;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(255, 159, 28, 0.3);
+  transition: transform 0.1s ease, background-color 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.btn-primary:hover {
+  background-color: var(--accent-orange-hover);
+  transform: translateY(-2px);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.toggle-auth {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+.toggle-auth a {
+  color: var(--primary);
+  text-decoration: underline;
+  cursor: pointer;
+  margin-left: 5px;
+}
+
+/* ==========================================
+   ESTRUCTURA Y DISEÑO DEL LOGIN: PINGU TEACHER
+   ========================================== */
+
+/* Fondo general y centrado */
+body {
+  position: relative;
+  overflow-x: hidden;
+  background-color: var(--bg-color, #F0F4F8);
+}
+
+/* Contenedor principal de la tarjeta de login */
+.login-container {
+  background: var(--card-bg, #FFFFFF);
+  width: 100%;
+  max-width: 440px;
+  padding: 30px;
+  border-radius: 24px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+  border: 3px solid var(--border-color, #CBD5E1);
+  z-index: 10;
+  margin: auto;
+}
+
+/* Navegación superior (Botón de Inicio) */
+.top-nav {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 15px;
+}
+
+.btn-inicio {
+  background-color: var(--input-bg, #F8FAFC);
+  border: 2px solid var(--border-color, #CBD5E1);
+  padding: 6px 14px;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: var(--text-main, #1D2A44);
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.btn-inicio:hover {
+  border-color: var(--primary, #4361EE);
+  color: var(--primary, #4361EE);
+}
+
+/* Encabezado con el nombre PINGU TEACHER */
+.login-header {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.login-header .app-icon {
+  font-size: 2.5rem;
+  margin-bottom: 8px;
+}
+
+.login-header h1 {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--primary, #4361EE);
+  letter-spacing: 0.5px;
+}
+
+.login-header p {
+  color: var(--text-muted, #4B5563);
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin-top: 4px;
+}
+
+/* Campos del formulario */
+.form-field {
+  margin-bottom: 18px;
+}
+
+.form-field label {
+  display: block;
+  font-weight: 700;
+  margin-bottom: 6px;
+  font-size: 0.95rem;
+  color: var(--text-main, #1D2A44);
+}
+
+.form-field input {
+  width: 100%;
+  padding: 12px 16px;
+  border: 2px solid var(--border-color, #CBD5E1);
+  background-color: var(--input-bg, #F8FAFC);
+  border-radius: 14px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-main, #1D2A44);
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.form-field input:focus {
+  border-color: var(--primary, #4361EE);
+  background-color: #FFFFFF;
+}
+
+/* Botón principal de Enviar / Iniciar Sesión */
+.btn-submit {
+  width: 100%;
+  padding: 14px;
+  background-color: var(--accent-orange, #FF9F1C);
+  color: #FFFFFF;
+  border: none;
+  border-radius: 14px;
+  font-size: 1.05rem;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(255, 159, 28, 0.3);
+  transition: transform 0.1s ease, background-color 0.2s ease;
+  margin-top: 10px;
+}
+
+.btn-submit:hover {
+  transform: translateY(-2px);
+}
+
+/* Zona inferior y botón de crear cuenta */
+.login-footer {
+  text-align: center;
+  margin-top: 25px;
+  padding-top: 20px;
+  border-top: 2px dashed var(--border-color, #CBD5E1);
+}
+
+.login-footer p {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-muted, #4B5563);
+  margin-bottom: 10px;
+}
+
+.btn-crear-cuenta {
+  display: inline-block;
+  width: 100%;
+  padding: 12px;
+  background-color: transparent;
+  color: var(--primary, #4361EE);
+  border: 2px solid var(--primary, #4361EE);
+  border-radius: 14px;
+  font-size: 0.95rem;
+  font-weight: 800;
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+}
+
+.btn-crear-cuenta:hover {
+  background-color: rgba(67, 97, 238, 0.05);
+}
+
+/* ==========================================
+   DETALLES FLOTANTES (Fondo Dinámico)
+   ========================================== */
+.floating-detail {
+  position: absolute;
+  font-size: 2rem;
+  opacity: 0.6;
+  z-index: 1;
+  animation: float 4s ease-in-out infinite alternate;
+}
+
+.detail-1 { top: 10%; left: 15%; animation-delay: 0s; }
+.detail-2 { top: 15%; right: 15%; animation-delay: 1s; }
+.detail-3 { bottom: 12%; left: 20%; animation-delay: 2s; }
+.detail-4 { bottom: 15%; right: 20%; animation-delay: 1.5s; }
+
+@keyframes float {
+  0% { transform: translateY(0px) rotate(0deg); }
+  100% { transform: translateY(-12px) rotate(5deg); }
+}   
+/* ==========================================
+   1. NUEVA PALETA DE COLORES Y ACCESIBILIDAD
+   ========================================== */
+:root {
+  /* Estándar: Tonos menta, turquesa suave y cálidos amigables */
+  --bg-color: #E8F5E9;          /* Verde menta muy suave */
+  --card-bg: #FFFFFF;
+  --text-main: #0F382B;         /* Verde oscuro profundo para alto contraste */
+  --text-muted: #52796F;
+  --primary: #2A9D8F;           /* Turquesa amigable */
+  --primary-hover: #21867A;
+  --accent-yellow: #E9C46A;     /* Amarillo cálido */
+  --accent-yellow-hover: #D4B055;
+  --border-color: #B7E4C7;
+  --input-bg: #F4F9F4;
+  --focus-ring: #2A9D8F;
+}
+
+/* Modos de Daltonismo */
+body.protanopia {
+  --primary: #0077B6;
+  --primary-hover: #023E8A;
+  --accent-yellow: #F4A261;
+  --accent-yellow-hover: #E76F51;
+  --focus-ring: #0077B6;
+}
+
+body.deuteranopia {
+  --primary: #0284C7;
+  --primary-hover: #0369A1;
+  --accent-yellow: #E76F51;
+  --accent-yellow-hover: #D62828;
+  --focus-ring: #0284C7;
+}
+
+body.tritanopia {
+  --primary: #059669;
+  --primary-hover: #047857;
+  --accent-yellow: #DC2626;
+  --accent-yellow-hover: #B91C1C;
+  --focus-ring: #059669;
+}
+
+/* RESET Y ESTILOS GLOBALES */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Nunito', sans-serif;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-main);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  position: relative;
+  overflow-x: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* ==========================================
+   2. BARRA SUPERIOR DE FILTROS DE DALTONISMO
+   ========================================== */
+.accessibility-bar {
+  position: fixed;
+  top: 15px;
+  background: var(--card-bg);
+  padding: 8px 16px;
+  border-radius: 50px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  z-index: 1000;
+  border: 2px solid var(--border-color);
+}
+
+.accessibility-bar label {
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+
+.accessibility-bar select {
+  padding: 4px 10px;
+  border-radius: 20px;
+  border: 2px solid var(--primary);
+  font-weight: 600;
+  color: var(--text-main);
+  background-color: var(--input-bg);
+  cursor: pointer;
+  outline: none;
+}
+
+/* ==========================================
+   3. ELEMENTOS FLOTANTES POR TODA LA PANTALLA
+   ========================================== */
+.floating-element {
+  position: absolute;
+  font-size: 2.2rem;
+  opacity: 0.5;
+  z-index: 1;
+  pointer-events: none;
+  animation: floatAround 6s ease-in-out infinite alternate;
+}
+
+.fe-1 { top: 8%; left: 10%; animation-delay: 0s; }
+.fe-2 { top: 15%; right: 12%; animation-delay: 1.2s; }
+.fe-3 { top: 45%; left: 5%; animation-delay: 2.4s; }
+.fe-4 { top: 55%; right: 8%; animation-delay: 0.8s; }
+.fe-5 { bottom: 10%; left: 15%; animation-delay: 1.8s; }
+.fe-6 { bottom: 12%; right: 18%; animation-delay: 3s; }
+
+@keyframes floatAround {
+  0% { transform: translateY(0px) rotate(0deg) scale(1); }
+  100% { transform: translateY(-15px) rotate(8deg) scale(1.05); }
+}
+
+/* ==========================================
+   4. TARJETA DE LOGIN PRINCIPAL
+   ========================================== */
+.login-container {
+  background: var(--card-bg);
+  width: 100%;
+  max-width: 420px;
+  padding: 35px 30px;
+  border-radius: 24px;
+  box-shadow: 0 12px 30px rgba(15, 56, 43, 0.08);
+  border: 3px solid var(--border-color);
+  z-index: 10;
+  position: relative;
+}
+
+.login-header {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.login-header .app-icon {
+  font-size: 3rem;
+  margin-bottom: 5px;
+}
+
+.login-header h1 {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--primary);
+  letter-spacing: 0.5px;
+}
+
+.login-header p {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin-top: 4px;
+}
+
+/* FORMULARIO */
+.form-field {
+  margin-bottom: 18px;
+}
+
+.form-field label {
+  display: block;
+  font-weight: 700;
+  margin-bottom: 6px;
+  font-size: 0.95rem;
+  color: var(--text-main);
+}
+
+.form-field input {
+  width: 100%;
+  padding: 14px 16px;
+  border: 2px solid var(--border-color);
+  background-color: var(--input-bg);
+  border-radius: 14px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-main);
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.form-field input:focus {
+  border-color: var(--focus-ring);
+  box-shadow: 0 0 0 4px rgba(42, 157, 143, 0.15);
+  background-color: #FFFFFF;
+}
+
+/* BOTÓN INICIAR SESIÓN */
+.btn-submit {
+  width: 100%;
+  padding: 15px;
+  background-color: var(--accent-yellow);
+  color: var(--text-main);
+  border: none;
+  border-radius: 14px;
+  font-size: 1.1rem;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(233, 196, 106, 0.35);
+  transition: transform 0.1s ease, background-color 0.2s ease;
+  margin-top: 10px;
+}
+
+.btn-submit:hover {
+  background-color: var(--accent-yellow-hover);
+  transform: translateY(-2px);
+}
+
+/* PIE DE PÁGINA Y CREAR CUENTA */
+.login-footer {
+  text-align: center;
+  margin-top: 25px;
+  padding-top: 20px;
+  border-top: 2px dashed var(--border-color);
+}
+
+.login-footer p {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+}
+
+.btn-crear-cuenta {
+  display: inline-block;
+  width: 100%;
+  padding: 12px;
+  background-color: transparent;
+  color: var(--primary);
+  border: 2px solid var(--primary);
+  border-radius: 14px;
+  font-size: 0.95rem;
+  font-weight: 800;
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+}
+
+.btn-crear-cuenta:hover {
+  background-color: rgba(42, 157, 143, 0.08);
+}
+/* --- ESTILOS PARA EL PANEL DE USUARIO (usuario.php) --- */
+
+.dashboard-container {
+  width: 100%;
+  max-width: 850px;
+  margin: 40px auto;
+  z-index: 10;
+  position: relative;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+.welcome-card {
+  background: var(--card-bg, #FFFFFF);
+  padding: 30px;
+  border-radius: 24px;
+  box-shadow: 0 12px 30px rgba(15, 56, 43, 0.08);
+  border: 3px solid var(--border-color, #E2F0CB);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 25px;
+}
+
+.welcome-info h1 {
+  font-size: 1.8rem;
+  color: var(--primary, #2A9D8F);
+  font-weight: 800;
+  margin: 0 0 5px 0;
+}
+
+.welcome-info p {
+  color: var(--text-muted, #666666);
+  font-weight: 600;
+  font-size: 1rem;
+  margin: 0;
+}
+
+.user-avatar {
+  font-size: 3.5rem;
+  background: var(--input-bg, #F4F9F4);
+  padding: 10px 20px;
+  border-radius: 20px;
+  border: 2px dashed var(--border-color, #E2F0CB);
+}
+
+/* Grid de Secciones */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  margin-bottom: 25px;
+}
+
+.dash-card {
+  background: var(--card-bg, #FFFFFF);
+  padding: 25px;
+  border-radius: 20px;
+  box-shadow: 0 8px 20px rgba(15, 56, 43, 0.05);
+  border: 3px solid var(--border-color, #E2F0CB);
+  transition: transform 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.dash-card:hover {
+  transform: translateY(-4px);
+}
+
+.dash-card h3 {
+  font-size: 1.2rem;
+  color: var(--text-main, #2C3E50);
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-weight: 800;
+}
+
+.dash-card p {
+  color: var(--text-muted, #666666);
+  font-size: 0.95rem;
+  margin-bottom: 20px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.btn-card {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  background-color: var(--primary, #2A9D8F);
+  color: #FFFFFF;
+  text-align: center;
+  border-radius: 12px;
+  font-weight: 800;
+  text-decoration: none;
+  box-sizing: border-box;
+  transition: background-color 0.2s ease;
+}
+
+.btn-card:hover {
+  opacity: 0.9;
+}
+
+.btn-card.yellow {
+  background-color: var(--accent-yellow, #E9C46A);
+  color: var(--text-main, #2C3E50);
+}
+
+.logout-container {
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 40px;
+}
+
+.btn-logout {
+  color: #D62828;
+  font-weight: 800;
+  text-decoration: none;
+  background: #F8D7DA;
+  padding: 12px 25px;
+  border-radius: 12px;
+  border: 1px solid #F5C2C7;
+  display: inline-block;
+  transition: background 0.2s ease;
+}
+
+.btn-logout:hover {
+  background: #F5C2C7;
+}
