@@ -1,4 +1,3 @@
-
 <?php
 session_start();
 
@@ -51,21 +50,10 @@ if (!$stmt->fetch()) {
 $stmt->close();
 
 /* =========================================
-   PREGUNTAS DEL CUESTIONARIO
+   PREGUNTAS DEL CUESTIONARIO (10 PREGUNTAS)
    ========================================= */
 
 $preguntas = [
-
-    "root" => [
-        "titulo" => "Pregunta inicial",
-        "pregunta" => "Cuando tienes tiempo libre en casa y puedes elegir cualquier reto manual o mental, ¿qué tipo de actividad te llama más a la acción?",
-        "opciones" => [
-            "A" => "Agarrar herramientas, desarmar cosas o armar un mecanismo que funcione.",
-            "B" => "Pintar, dibujar, modelar o crear un diseño estético con materiales.",
-            "C" => "Organizar un juego con mis amigos o inventar una obra de teatro y dirigirla.",
-            "D" => "Investigar un misterio, hacer un experimento o leer sobre cómo funciona la ciencia."
-        ]
-    ],
 
     "H1" => [
         "titulo" => "H1",
@@ -363,7 +351,7 @@ $iniciar_quiz =
 <style>
 
 /* =========================================
-   COLORES PENGUICH
+   COLORES PENGUICH & ESTILOS MODERNOS
    ========================================= */
 
 :root {
@@ -392,17 +380,53 @@ body {
         radial-gradient(circle at 10% 10%, #D7F6E8 0, transparent 30%),
         radial-gradient(circle at 90% 15%, #FFF0C5 0, transparent 28%),
         linear-gradient(145deg, #F3FFF9, #EAF8F7);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-.quiz-container {
+/* Barra superior con botón de pausa y minijuego */
+.top-bar {
+    width: 100%;
     max-width: 820px;
-    margin: 25px auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.brand-title {
+    font-weight: 800;
+    color: #176F65;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-pause {
+    background: linear-gradient(135deg, var(--amarillo) 0%, #D69E2E 100%);
+    color: #744210;
+    border: none;
+    padding: 10px 18px;
+    font-weight: 800;
+    border-radius: 14px;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(236,201,75,0.4);
+    transition: all 0.3s ease;
+}
+.btn-pause:hover { transform: translateY(-2px) scale(1.05); }
+
+.quiz-container {
+    width: 100%;
+    max-width: 820px;
     background: white;
     padding: 35px;
     border-radius: 28px;
     border: 2px solid var(--borde);
     box-shadow: 0 18px 45px rgba(29, 112, 101, 0.10);
     animation: aparecer .5s ease;
+    position: relative;
 }
 
 @keyframes aparecer {
@@ -433,6 +457,12 @@ body {
     align-items: center;
     font-size: 42px;
     box-shadow: 0 8px 20px rgba(42,157,143,.12);
+    animation: floatIcon 3s ease-in-out infinite;
+}
+
+@keyframes floatIcon {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
 }
 
 .quiz-header h1 {
@@ -471,22 +501,27 @@ body {
     font-weight: 900;
 }
 
+/* Tarjetas paso a paso dinámicas */
+.question-step { display: none; }
+.question-step.active { display: block; animation: cardBounce 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+
+@keyframes cardBounce {
+    0% { opacity: 0; transform: scale(0.95) translateY(15px); }
+    100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+
 .question-card {
     background: #F8FCFA;
     border: 2px solid #E1EFE9;
     border-radius: 20px;
     padding: 22px;
     margin-bottom: 20px;
-    transition: border-color .2s;
-}
-
-.question-card:hover {
-    border-color: #A9DCCE;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.02);
 }
 
 .question-card h3 {
     margin: 0;
-    font-size: 1.04rem;
+    font-size: 1.15rem;
     line-height: 1.65;
     color: #245B52;
     font-weight: 800;
@@ -506,10 +541,11 @@ body {
 .options-group {
     display: flex;
     flex-direction: column;
-    gap: 11px;
+    gap: 12px;
     margin-top: 17px;
 }
 
+/* Animación súper fluida al pasar el cursor y seleccionar */
 .option-label {
     display: flex;
     align-items: flex-start;
@@ -521,19 +557,21 @@ body {
     cursor: pointer;
     font-size: .95rem;
     line-height: 1.55;
-    transition: all .2s;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .option-label:hover {
     background: #F0FBF6;
     border-color: var(--turquesa);
-    transform: translateX(3px);
+    transform: translateX(8px) scale(1.01);
+    box-shadow: 0 6px 20px rgba(42,157,143,0.15);
 }
 
-.option-label:has(input:checked) {
+.option-label input:checked + span, .option-label:has(input:checked) {
     background: #E1F7ED;
     border-color: var(--turquesa);
-    box-shadow: 0 3px 12px rgba(42,157,143,.10);
+    box-shadow: 0 3px 12px rgba(42,157,143,.15);
+    font-weight: 700;
 }
 
 .option-label input {
@@ -542,6 +580,7 @@ body {
     width: 18px;
     height: 18px;
     flex-shrink: 0;
+    cursor: pointer;
 }
 
 .option-letter {
@@ -588,7 +627,7 @@ body {
     margin-top: 20px;
 }
 
-.buttons-row a {
+.buttons-row a, .buttons-row button {
     flex: 1;
 }
 
@@ -615,11 +654,11 @@ body {
 }
 
 .progress-fill {
-    width: 0%;
+    width: 10%;
     height: 100%;
     background: linear-gradient(90deg, #2A9D8F, #F4C95D);
     border-radius: 20px;
-    transition: width .3s;
+    transition: width .4s ease;
 }
 
 .result-hero {
@@ -705,6 +744,36 @@ body {
     margin-top: 15px;
 }
 
+/* Modal del Minijuego Dinosaurio Realista */
+#modal-pausa {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(15, 23, 42, 0.75);
+    backdrop-filter: blur(8px);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+.modal-content {
+    background: #1E293B;
+    color: #F8FAFC;
+    padding: 30px;
+    border-radius: 24px;
+    width: 90%;
+    max-width: 500px;
+    text-align: center;
+    border: 4px solid var(--amarillo);
+    box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+}
+canvas {
+    background: #0F172A;
+    border: 3px solid #38BDF8;
+    border-radius: 12px;
+    margin-top: 15px;
+    box-shadow: inset 0 0 20px rgba(56, 189, 248, 0.2);
+}
+
 :focus-visible {
     outline: 3px solid #E7A32F;
     outline-offset: 3px;
@@ -715,17 +784,8 @@ body {
         padding: 20px 15px;
         margin: 10px auto;
     }
-
-    .question-card {
-        padding: 17px 14px;
-    }
-
     .buttons-row {
         flex-direction: column;
-    }
-
-    .option-label {
-        padding: 13px;
     }
 }
 
@@ -740,6 +800,13 @@ body {
 </head>
 
 <body>
+
+<?php if (!$guardado_exitoso && $iniciar_quiz): ?>
+<div class="top-bar">
+    <span class="brand-title">🐧 Pinguich Challenge</span>
+    <button class="btn-pause" onclick="abrirPausa()">⏸️ Descanso & Dino Game (10 min)</button>
+</div>
+<?php endif; ?>
 
 <main class="quiz-container">
 
@@ -858,13 +925,13 @@ body {
 
     <div class="buttons-row">
 
-        <a href="usuario.php" class="btn-submit">
+        <a href="usuario.php" class="btn-submit" style="text-decoration:none;">
             🏠 Volver al panel
         </a>
 
         <a
             href="procesar_inteligencia.php?iniciar=1"
-            class="btn-submit btn-secondary">
+            class="btn-submit btn-secondary" style="text-decoration:none;">
             🔄 Repetir test
         </a>
 
@@ -895,9 +962,8 @@ body {
         <h2>🌟 ¡Descubre tus talentos!</h2>
 
         <p>
-            Te esperan 11 preguntas sobre juegos,
-            inventos, creatividad, trabajo en equipo
-            y descubrimientos.
+            Te esperan 10 preguntas interactivas sobre juegos,
+            inventos, creatividad y resolución de retos.
         </p>
 
         <p>
@@ -911,31 +977,26 @@ body {
 
     <a
         href="procesar_inteligencia.php?iniciar=1"
-        class="btn-submit">
+        class="btn-submit" style="text-decoration:none;">
         🚀 ¡Comenzar aventura!
     </a>
 
     <p class="small-note">
-        Puedes responder a tu ritmo, sin límite de tiempo.
+        Puedes responder a tu ritmo con tarjetas paso a paso.
     </p>
 
 <?php else: ?>
 
     <!-- ==================================
-         PANTALLA DEL CUESTIONARIO
+         PANTALLA DEL CUESTIONARIO (WIZARD PASO A PASO)
          ================================== -->
 
-    <div class="quiz-header">
-
-        <div class="app-icon">🐧</div>
-
-        <h1>Descubre tus habilidades</h1>
-
-        <p>
-            Elige la respuesta que más se parezca
-            a lo que tú harías.
+    <div class="quiz-header" style="margin-bottom: 15px;">
+        <div class="app-icon" style="width: 60px; height: 60px; font-size: 2.2rem; margin-bottom: 8px;">🐧</div>
+        <h2 style="margin:0; color: #176F65; font-size: 1.5rem;">Habilidades y Aptitudes</h2>
+        <p style="margin: 6px 0 0 0; font-size: 0.95rem; color: var(--gris); font-weight: 700;">
+            Pregunta <span id="current-q-num">1</span> de <?php echo $total_preguntas; ?>
         </p>
-
     </div>
 
     <?php if ($error !== ""): ?>
@@ -945,21 +1006,13 @@ body {
     <?php endif; ?>
 
     <div class="progress-wrapper">
-
         <div class="progress-info">
             <span>🌟 Tu avance</span>
-            <span id="progress-text">
-                0 / <?php echo $total_preguntas; ?>
-            </span>
+            <span id="progress-text">1 / <?php echo $total_preguntas; ?></span>
         </div>
-
         <div class="progress-track">
-            <div
-                class="progress-fill"
-                id="progress-fill">
-            </div>
+            <div class="progress-fill" id="progress-fill"></div>
         </div>
-
     </div>
 
     <form
@@ -971,163 +1024,259 @@ body {
         $numero = 0;
         foreach ($preguntas as $clave => $pregunta):
             $numero++;
+            $es_activa = ($numero === 1) ? "active" : "";
         ?>
 
-            <?php if ($clave === "H1"): ?>
+            <div class="question-step <?php echo $es_activa; ?>" data-step="<?php echo $numero; ?>">
+                <div class="question-card">
+                    <span class="question-number">
+                        Pregunta <?php echo $numero; ?> de <?php echo $total_preguntas; ?>
+                    </span>
 
-                <h2 class="section-title">
-                    🧩 Habilidades y aptitudes
-                </h2>
+                    <h3>
+                        <?php echo escapar($pregunta["pregunta"]); ?>
+                    </h3>
 
-            <?php endif; ?>
-
-            <div class="question-card">
-
-                <span class="question-number">
-                    Pregunta <?php echo $numero; ?>
-                    de <?php echo $total_preguntas; ?>
-                </span>
-
-                <h3>
-                    <?php echo escapar($pregunta["pregunta"]); ?>
-                </h3>
-
-                <div class="options-group">
-
-                    <?php
-                    foreach (
-                        $pregunta["opciones"] as $letra => $texto
-                    ):
-                        $seleccionado =
-                            isset($_POST[$clave]) &&
-                            $_POST[$clave] === $letra;
-                    ?>
-
-                        <label class="option-label">
-
-                            <input
-                                type="radio"
-                                name="<?php echo escapar($clave); ?>"
-                                value="<?php echo escapar($letra); ?>"
-                                <?php echo $seleccionado ? "checked" : ""; ?>
-                                required
-                            >
-
-                            <span>
-                                <span class="option-letter">
-                                    <?php echo escapar($letra); ?>)
+                    <div class="options-group">
+                        <?php foreach ($pregunta["opciones"] as $letra => $texto): ?>
+                            <label class="option-label">
+                                <input
+                                    type="radio"
+                                    name="<?php echo escapar($clave); ?>"
+                                    value="<?php echo escapar($letra); ?>"
+                                    required
+                                >
+                                <span>
+                                    <span class="option-letter"><?php echo escapar($letra); ?>)</span>
+                                    <?php echo escapar($texto); ?>
                                 </span>
-
-                                <?php echo escapar($texto); ?>
-                            </span>
-
-                        </label>
-
-                    <?php endforeach; ?>
-
+                            </label>
+                        <?php endforeach; ?>
+                    </div>
                 </div>
 
+                <div class="buttons-row">
+                    <?php if ($numero > 1): ?>
+                        <button type="button" class="btn-submit btn-secondary" onclick="anteriorPaso(<?php echo $numero; ?>)">⬅️ Anterior</button>
+                    <?php endif; ?>
+
+                    <?php if ($numero < $total_preguntas): ?>
+                        <button type="button" class="btn-submit" onclick="siguientePaso(<?php echo $numero; ?>)">Siguiente ➡️</button>
+                    <?php else: ?>
+                        <button type="submit" name="enviar_test" value="1" class="btn-submit" style="background: linear-gradient(135deg, #48BB78, #38A169);">
+                            💾 Guardar mi diagnóstico
+                        </button>
+                    <?php endif; ?>
+                </div>
             </div>
 
         <?php endforeach; ?>
 
-        <button
-            type="submit"
-            name="enviar_test"
-            value="1"
-            class="btn-submit">
-            💾 Guardar mi diagnóstico
-        </button>
-
     </form>
-
-    <p class="small-note">
-        Tus respuestas se guardarán en tu cuenta de Penguich.
-    </p>
 
 <?php endif; ?>
 
 </main>
 
+<!-- Modal de Pausa con Minijuego de Dinosaurio y Puntitos Interactivos -->
+<div id="modal-pausa">
+    <div class="modal-content">
+        <h2>🦖 Dino Runner: Zona Pinguich</h2>
+        <p style="margin: 5px 0;">Tiempo restante: <span id="timer" style="color: var(--amarillo); font-size: 1.3rem; font-weight: bold;">10:00</span></p>
+        <p style="font-size: 0.9rem; color: #38BDF8; font-weight: 700;">⭐ Puntos: <span id="score" style="color: #48BB78; font-size: 1.2rem;">0</span></p>
+        <p style="font-size: 0.8rem; color: #94A3B8; margin-top:0;">Presiona <strong>ESPACIO</strong> o haz clic en <strong>¡SALTAR!</strong> para esquivar cactus y atrapar los puntitos brillantes.</p>
+        
+        <canvas id="dinoCanvas" width="440" height="160"></canvas>
+        
+        <div style="margin-top: 20px; display: flex; gap: 12px;">
+            <button class="btn-pause" style="flex:1;" onclick="saltarDino()">¡SALTAR! 🦖</button>
+            <button class="btn-submit" style="flex:1; padding: 12px;" onclick="cerrarPausa()">Continuar Test ▶️</button>
+        </div>
+    </div>
+</div>
+
 <script>
+    let currentStep = 1;
+    const totalSteps = <?php echo $total_preguntas; ?>;
 
-/* =========================================
-   BARRA DE PROGRESO INTERACTIVA
-   ========================================= */
-
-const formulario = document.getElementById("quiz-form");
-
-if (formulario) {
-
-    const totalPreguntas = <?php echo $total_preguntas; ?>;
-
-    const barra = document.getElementById("progress-fill");
-    const texto = document.getElementById("progress-text");
-
-    function actualizarProgreso() {
-
-        const seleccionadas = formulario.querySelectorAll(
-            'input[type="radio"]:checked'
-        );
-
-        const cantidad = seleccionadas.length;
-
-        const porcentaje = (cantidad / totalPreguntas) * 100;
-
-        barra.style.width = porcentaje + "%";
-
-        texto.textContent =
-            cantidad + " / " + totalPreguntas;
-
+    function actualizarProgresoWizard() {
+        const barra = document.getElementById("progress-fill");
+        const texto = document.getElementById("progress-text");
+        if (barra && texto) {
+            let porcentaje = (currentStep / totalSteps) * 100;
+            barra.style.width = porcentaje + "%";
+            texto.textContent = currentStep + " / " + totalSteps;
+            document.getElementById('current-q-num').innerText = currentStep;
+        }
     }
 
-    formulario.addEventListener(
-        "change",
-        actualizarProgreso
-    );
+    function siguientePaso(step) {
+        const currentCard = document.querySelector(`.question-step[data-step="${step}"]`);
+        const radios = currentCard.querySelectorAll('input[type="radio"]');
+        let seleccionado = false;
+        radios.forEach(r => { if(r.checked) seleccionado = true; });
 
-    actualizarProgreso();
+        if(!seleccionado) {
+            alert("🐧 Por favor selecciona una opción antes de continuar.");
+            return;
+        }
 
-    formulario.addEventListener("submit", function(event) {
+        currentCard.classList.remove('active');
+        currentStep = step + 1;
+        let siguienteCard = document.querySelector(`.question-step[data-step="${currentStep}"]`);
+        if(siguienteCard) {
+            siguienteCard.classList.add('active');
+            actualizarProgresoWizard();
+            window.scrollTo({ top: 150, behavior: 'smooth' });
+        }
+    }
 
-        const seleccionadas = formulario.querySelectorAll(
-            'input[type="radio"]:checked'
-        );
+    function anteriorPaso(step) {
+        document.querySelector(`.question-step[data-step="${step}"]`).classList.remove('active');
+        currentStep = step - 1;
+        document.querySelector(`.question-step[data-step="${currentStep}"]`).classList.add('active');
+        actualizarProgresoWizard();
+        window.scrollTo({ top: 150, behavior: 'smooth' });
+    }
 
-        if (seleccionadas.length !== totalPreguntas) {
+    // Lógica del Temporizador y Minijuego del Dinosaurio
+    let timerInterval;
+    let tiempoRestante = 600; // 10 minutos
 
-            event.preventDefault();
+    function abrirPausa() {
+        document.getElementById('modal-pausa').style.display = 'flex';
+        iniciarDinoJuego();
+        if(!timerInterval) {
+            timerInterval = setInterval(() => {
+                tiempoRestante--;
+                let m = Math.floor(tiempoRestante / 60);
+                let s = tiempoRestante % 60;
+                document.getElementById('timer').innerText = `${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`;
+                if(tiempoRestante <= 0) { clearInterval(timerInterval); cerrarPausa(); }
+            }, 1000);
+        }
+    }
 
-            alert(
-                "🐧 ¡Penguich te espera! Responde todas las preguntas antes de terminar."
-            );
+    function cerrarPausa() {
+        document.getElementById('modal-pausa').style.display = 'none';
+        juegoActivo = false;
+    }
 
-            const tarjetas = formulario.querySelectorAll(
-                ".question-card"
-            );
+    let canvas, ctx;
+    let dino = { x: 40, y: 105, w: 30, h: 35, vy: 0, gravity: 0.7, jumpForce: -10, grounded: true };
+    let cactus = { x: 460, y: 110, w: 18, h: 30, speed: 5 };
+    let puntito = { x: 480, y: 70, radius: 7, speed: 5, activo: true };
+    let puntosJuego = 0;
+    let juegoActivo = false;
 
-            for (const tarjeta of tarjetas) {
+    function iniciarDinoJuego() {
+        canvas = document.getElementById('dinoCanvas');
+        ctx = canvas.getContext('2d');
+        juegoActivo = true;
+        puntosJuego = 0;
+        document.getElementById('score').innerText = puntosJuego;
+        dino.y = 105;
+        dino.vy = 0;
+        cactus.x = 460;
+        puntito.x = 500;
+        puntito.activo = true;
+        loopDino();
+    }
 
-                const respondida = tarjeta.querySelector(
-                    'input[type="radio"]:checked'
-                );
+    function saltarDino() {
+        if (dino.grounded) {
+            dino.vy = dino.jumpForce;
+            dino.grounded = false;
+        }
+    }
 
-                if (!respondida) {
+    window.addEventListener('keydown', (e) => {
+        if(e.code === 'Space') { 
+            saltarDino(); 
+            if(document.getElementById('modal-pausa').style.display === 'flex') {
+                e.preventDefault(); 
+            }
+        }
+    });
 
-                    tarjeta.scrollIntoView({
-                        behavior: "smooth",
-                        block: "center"
-                    });
+    function loopDino() {
+        if(!juegoActivo) return;
 
-                    break;
-                }
+        ctx.fillStyle = '#0F172A';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        // Suelo
+        ctx.fillStyle = '#38BDF8';
+        ctx.fillRect(0, 140, canvas.width, 20);
+
+        // Física del Dinosaurio
+        dino.vy += dino.gravity;
+        dino.y += dino.vy;
+        if (dino.y >= 105) {
+            dino.y = 105;
+            dino.vy = 0;
+            dino.grounded = true;
+        }
+
+        // Dibujar Dino
+        ctx.fillStyle = '#48BB78';
+        ctx.fillRect(dino.x + 5, dino.y + 10, 20, 20);
+        ctx.fillRect(dino.x + 16, dino.y, 12, 14);
+        ctx.fillStyle = '#FFFFFF';
+        ctx.fillRect(dino.x + 22, dino.y + 3, 3, 3);
+
+        // Cactus
+        cactus.x -= cactus.speed;
+        if (cactus.x < -30) {
+            cactus.x = canvas.width + Math.random() * 60;
+            cactus.speed = 5 + Math.random() * 1.5;
+        }
+        ctx.fillStyle = '#E53E3E';
+        ctx.fillRect(cactus.x, cactus.y, cactus.w, cactus.h);
+
+        // Puntito Interactivo (Suma puntos reales al tocar el dino)
+        puntito.x -= puntito.speed;
+        if (puntito.x < -20) {
+            puntito.x = canvas.width + Math.random() * 100;
+            puntito.y = 50 + Math.random() * 50;
+            puntito.activo = true;
+        }
+
+        if (puntito.activo) {
+            ctx.fillStyle = '#F4C95D';
+            ctx.beginPath();
+            ctx.arc(puntito.x, puntito.y, puntito.radius, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.strokeStyle = '#D69E2E';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+
+            // Colisión de los puntitos con el dinosaurio
+            let distX = (dino.x + dino.w/2) - puntito.x;
+            let distY = (dino.y + dino.h/2) - puntito.y;
+            let distancia = Math.sqrt(distX * distX + distY * distY);
+
+            if (distancia < puntito.radius + 15) {
+                puntosJuego += 10;
+                document.getElementById('score').innerText = puntosJuego;
+                puntito.activo = false;
             }
         }
 
-    });
+        // Colisión con cactus
+        if (
+            dino.x < cactus.x + cactus.w &&
+            dino.x + dino.w > cactus.x &&
+            dino.y < cactus.y + cactus.h &&
+            dino.y + dino.h > cactus.y
+        ) {
+            puntosJuego = Math.max(0, puntosJuego - 5);
+            document.getElementById('score').innerText = puntosJuego;
+            cactus.x = canvas.width + 50;
+        }
 
-}
-
+        requestAnimationFrame(loopDino);
+    }
 </script>
 
 </body>
