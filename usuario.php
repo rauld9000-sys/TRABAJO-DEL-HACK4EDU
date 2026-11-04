@@ -109,7 +109,7 @@ $usuario_actual = htmlspecialchars(
 <p>Descubre cómo prefieres aprender y qué métodos te ayudan más.</p>
                         </div>
 
-                        <a href="procesar_estilo.php" class="penguich-card-button">
+                        <a href="procesar_estilos.php" class="penguich-card-button">
                             Descubrir mi estilo
                             <span aria-hidden="true">→</span>
                         </a>

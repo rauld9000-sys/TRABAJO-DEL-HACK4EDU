@@ -141,7 +141,7 @@ $iniciar_quiz = isset($_GET['iniciar']) && $_GET['iniciar'] == '1';
 
         <div style="display: flex; gap: 15px;">
           <a href="usuario.php" class="btn-submit" style="flex: 1;">Volver al Panel</a>
-          <a href="procesar_estilo.php?iniciar=1" style="background: #4A5568; color: white; flex: 1; padding: 14px; font-weight: 800; border-radius: 12px; text-align: center; text-decoration: none; display: block;">Repetir Test</a>
+          <a href="procesar_estilos.php?iniciar=1" style="background: #4A5568; color: white; flex: 1; padding: 14px; font-weight: 800; border-radius: 12px; text-align: center; text-decoration: none; display: block;">Repetir Test</a>
         </div>
 
     <?php elseif (!$iniciar_quiz): ?>
@@ -157,7 +157,7 @@ $iniciar_quiz = isset($_GET['iniciar']) && $_GET['iniciar'] == '1';
         </div>
 
         <div style="text-align: center;">
-          <a href="procesar_estilo.php?iniciar=1" class="btn-submit" style="display: inline-block; max-width: 280px;">🚀 ¡Comenzar Quiz!</a>
+          <a href="procesar_estilos.php?iniciar=1" class="btn-submit" style="display: inline-block; max-width: 280px;">🚀 ¡Comenzar Quiz!</a>
         </div>
 
     <?php else: ?>
@@ -167,7 +167,7 @@ $iniciar_quiz = isset($_GET['iniciar']) && $_GET['iniciar'] == '1';
           <p>Elige la opción que más se parezca a ti en cada situación.</p>
         </div>
 
-        <form action="procesar_estilo.php" method="POST">
+        <form action="procesar_estilos.php" method="POST">
           
           <!-- PREGUNTA RAÍZ -->
           <div class="question-card">
