@@ -76,7 +76,7 @@ $usuario_actual = htmlspecialchars(
                     -->
 
                     <img
-                        src="img/mascota-penguich.png"
+                        src="img/Penguich sobre un arcoíris pastel.png"
                         alt="Mascota Penguich"
                         class="penguich-mascot-image"
                     >
@@ -109,8 +109,8 @@ $usuario_actual = htmlspecialchars(
 <p>Descubre cómo prefieres aprender y qué métodos te ayudan más.</p>
                         </div>
 
-                        <a href="actividades.php" class="penguich-card-button">
-                            Comenzar aventura
+                        <a href="procesar_estilo.php" class="penguich-card-button">
+                            Descubrir mi estilo
                             <span aria-hidden="true">→</span>
                         </a>
 
@@ -128,8 +128,8 @@ $usuario_actual = htmlspecialchars(
 <p>Explora diferentes formas de pensar, crear y resolver problemas.</p>
                         </div>
 
-                        <a href="aptitudes.php" class="penguich-card-button">
-                            Ver mis talentos
+                        <a href="procesar_inteligencia.php" class="penguich-card-button">
+                            Explorar mis inteligencias
                             <span aria-hidden="true">→</span>
                         </a>
 
@@ -147,8 +147,8 @@ $usuario_actual = htmlspecialchars(
 <p>Reconoce tus fortalezas y descubre todo lo que puedes desarrollar.</p>
                         </div>
 
-                        <a href="usuario.php" class="penguich-card-button">
-                            Buscar aptitudes
+                        <a href="procesar_talentos.php" class="penguich-card-button">
+                            Descubrir mis talentos
                             <span aria-hidden="true">→</span>
                         </a>
 
@@ -166,8 +166,8 @@ $usuario_actual = htmlspecialchars(
 <p>Encuentra estrategias y actividades para aprender a tu manera.</p>
                         </div>
 
-                        <a href="herramientas.php" class="penguich-card-button">
-                            Explorar herramientas
+                        <a href="procesar_estrategias.php" class="penguich-card-button">
+                            Comienza mi ruta
                             <span aria-hidden="true">→</span>
                         </a>
 
