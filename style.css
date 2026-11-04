@@ -1052,3 +1052,1755 @@ body {
     width: 100% !important;
   }
 }
+
+
+/* ==========================================
+   PENGUICH - DASHBOARD
+   Estilos exclusivos de usuario.php
+========================================== */
+
+body.penguich-dashboard {
+    --pg-bg: #EAF8EE;
+    --pg-text: #263B4A;
+    --pg-muted: #526775;
+    --pg-blue: #70C9F5;
+    --pg-yellow: #FFD76A;
+    --pg-green: #54C7A2;
+    --pg-purple: #B6A5F6;
+
+    margin: 0;
+    min-height: 100vh;
+    background: var(--pg-bg);
+    color: var(--pg-text);
+    font-family: 'Nunito', sans-serif;
+    overflow-x: hidden;
+}
+
+.penguich-dashboard *,
+.penguich-dashboard *::before,
+.penguich-dashboard *::after {
+    box-sizing: border-box;
+}
+
+.penguich-dashboard .penguich-wrapper {
+    width: min(1440px, 100%);
+    margin: 0 auto;
+    padding: 20px 28px 28px;
+    position: relative;
+    z-index: 1;
+}
+
+/* BARRA SUPERIOR */
+
+.penguich-dashboard .penguich-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    min-height: 64px;
+    margin-bottom: 22px;
+}
+
+.penguich-dashboard .penguich-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.55rem;
+    font-weight: 900;
+    color: #237F70;
+}
+
+.penguich-dashboard .penguich-brand > span:first-child {
+    font-size: 1.9rem;
+}
+
+.penguich-dashboard .penguich-header-actions {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 14px;
+}
+
+.penguich-dashboard .penguich-filter {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 13px;
+    background: #FFFFFF;
+    border: 1px solid #D8E9E2;
+    border-radius: 16px;
+}
+
+.penguich-dashboard .penguich-filter label {
+    font-size: 0.85rem;
+    font-weight: 800;
+}
+
+.penguich-dashboard .penguich-filter select {
+    padding: 8px 12px;
+    border: 1px solid #A7CFC4;
+    border-radius: 10px;
+    background: #FFFFFF;
+    color: var(--pg-text);
+    font-family: inherit;
+    font-size: 0.85rem;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.penguich-dashboard .penguich-logout {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 44px;
+    padding: 10px 18px;
+    background: #FFFFFF;
+    border: 1px solid #E5C7C2;
+    border-radius: 13px;
+    color: #A43F35;
+    font-size: 0.88rem;
+    font-weight: 800;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.2s;
+}
+
+.penguich-dashboard .penguich-logout:hover {
+    background: #FFF0ED;
+    transform: translateY(-2px);
+}
+
+/* DISTRIBUCIÓN 30 / 70 */
+
+.penguich-dashboard .penguich-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 3fr) minmax(0, 7fr);
+    gap: 26px;
+    align-items: stretch;
+}
+
+/* MASCOTA */
+
+.penguich-dashboard .penguich-mascot-panel {
+    min-width: 0;
+    min-height: 550px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.38);
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    border-radius: 28px;
+}
+
+.penguich-dashboard .penguich-mascot-container {
+    width: 100%;
+    min-height: 550px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.penguich-dashboard .penguich-mascot-image {
+    display: block;
+    width: min(100%, 380px);
+    height: auto;
+    max-height: 520px;
+    object-fit: contain;
+    animation: penguichFloat 5s ease-in-out infinite;
+}
+
+/* CONTENIDO DERECHO */
+
+.penguich-dashboard .penguich-main {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.penguich-dashboard .penguich-section-heading {
+    margin-bottom: 20px;
+}
+
+.penguich-dashboard .penguich-eyebrow {
+    display: inline-block;
+    margin-bottom: 5px;
+    font-size: 0.72rem;
+    font-weight: 900;
+    letter-spacing: 1.4px;
+    color: #267B69;
+}
+
+.penguich-dashboard .penguich-section-heading h1 {
+    margin: 0 0 6px;
+    font-size: clamp(1.45rem, 2.2vw, 2rem);
+    line-height: 1.2;
+    font-weight: 900;
+    color: var(--pg-text);
+}
+
+.penguich-dashboard .penguich-section-heading p {
+    margin: 0;
+    color: var(--pg-muted);
+    font-size: 0.95rem;
+}
+
+/* GRID DE CUATRO TARJETAS */
+
+.penguich-dashboard .penguich-cards {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px;
+    flex: 1;
+}
+
+.penguich-dashboard .penguich-card {
+    min-width: 0;
+    min-height: 225px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 23px;
+    border-radius: 25px;
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    box-shadow: 0 8px 20px rgba(40, 75, 65, 0.07);
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+    animation: penguichAppear 0.55s ease both;
+}
+
+.penguich-dashboard .penguich-card:nth-child(2) {
+    animation-delay: 0.08s;
+}
+
+.penguich-dashboard .penguich-card:nth-child(3) {
+    animation-delay: 0.16s;
+}
+
+.penguich-dashboard .penguich-card:nth-child(4) {
+    animation-delay: 0.24s;
+}
+
+.penguich-dashboard .penguich-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 15px 28px rgba(40, 75, 65, 0.12);
+}
+
+/* COLORES DE TARJETAS */
+
+.penguich-dashboard .penguich-card-blue {
+    background: #E3F4FF;
+    --pg-button: #2784B8;
+    --pg-button-hover: #17668F;
+    --pg-button-text: #FFFFFF;
+}
+
+.penguich-dashboard .penguich-card-yellow {
+    background: #FFF3D0;
+    --pg-button: #FFD76A;
+    --pg-button-hover: #F5C34A;
+    --pg-button-text: #263B4A;
+}
+
+.penguich-dashboard .penguich-card-green {
+    background: #DDF6E9;
+    --pg-button: #287F68;
+    --pg-button-hover: #1E6653;
+    --pg-button-text: #FFFFFF;
+}
+
+.penguich-dashboard .penguich-card-purple {
+    background: #EFEAFF;
+    --pg-button: #7658BE;
+    --pg-button-hover: #5C409D;
+    --pg-button-text: #FFFFFF;
+}
+
+/* ICONOS */
+
+.penguich-dashboard .penguich-card-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 58px;
+    height: 58px;
+    margin-bottom: 13px;
+    background: rgba(255, 255, 255, 0.65);
+    border-radius: 18px;
+    font-size: 2rem;
+}
+
+/* TEXTOS */
+
+.penguich-dashboard .penguich-card-content {
+    width: 100%;
+}
+
+.penguich-dashboard .penguich-card h2 {
+    margin: 0 0 8px;
+    font-size: clamp(1rem, 1.4vw, 1.25rem);
+    line-height: 1.3;
+    font-weight: 900;
+    color: #263B4A;
+}
+
+.penguich-dashboard .penguich-card p {
+    margin: 0;
+    color: #445A68;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+/* BOTONES COMPACTOS */
+
+.penguich-dashboard .penguich-card-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    min-height: 44px;
+    max-width: 100%;
+    margin-top: auto;
+    padding: 10px 16px;
+    background: var(--pg-button);
+    color: var(--pg-button-text);
+    border-radius: 13px;
+    font-size: 0.85rem;
+    font-weight: 900;
+    text-align: center;
+    text-decoration: none;
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease;
+}
+
+.penguich-dashboard .penguich-card-button:hover {
+    background: var(--pg-button-hover);
+    transform: translateY(-2px);
+}
+
+.penguich-dashboard .penguich-card-button span {
+    font-size: 1.1rem;
+}
+
+/* ACCESIBILIDAD DE TECLADO */
+
+.penguich-dashboard a:focus-visible,
+.penguich-dashboard select:focus-visible {
+    outline: 3px solid #1C6958;
+    outline-offset: 4px;
+}
+
+/* DECORACIONES */
+
+.penguich-dashboard .penguich-decoration {
+    position: fixed;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.65;
+    font-size: 2rem;
+}
+
+.penguich-dashboard .penguich-star {
+    top: 23%;
+    left: 1%;
+}
+
+.penguich-dashboard .penguich-rocket {
+    bottom: 10%;
+    left: 2%;
+}
+
+.penguich-dashboard .penguich-sparkle {
+    top: 16%;
+    right: 2%;
+}
+
+/* ANIMACIONES */
+
+@keyframes penguichFloat {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+@keyframes penguichAppear {
+    from {
+        opacity: 0;
+        transform: translateY(16px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* FILTROS VISUALES ORIENTATIVOS */
+
+body.penguich-dashboard.protanopia {
+    --pg-bg: #F0F4FA;
+    --pg-text: #25364A;
+    --pg-muted: #48596C;
+    filter: saturate(0.8);
+}
+
+body.penguich-dashboard.deuteranopia {
+    --pg-bg: #EDF3FA;
+    --pg-text: #293B50;
+    --pg-muted: #4D5F70;
+    filter: saturate(0.75);
+}
+
+body.penguich-dashboard.tritanopia {
+    --pg-bg: #F4F5ED;
+    --pg-text: #354139;
+    --pg-muted: #526158;
+    filter: saturate(0.8) hue-rotate(-12deg);
+}
+
+/* TABLETAS */
+
+@media (max-width: 1024px) {
+    .penguich-dashboard .penguich-wrapper {
+        padding: 18px;
+    }
+
+    .penguich-dashboard .penguich-layout {
+        grid-template-columns: minmax(0, 32fr) minmax(0, 68fr);
+        gap: 16px;
+    }
+
+    .penguich-dashboard .penguich-cards {
+        gap: 14px;
+    }
+
+    .penguich-dashboard .penguich-card {
+        padding: 16px;
+        min-height: 230px;
+    }
+
+    .penguich-dashboard .penguich-mascot-panel,
+    .penguich-dashboard .penguich-mascot-container {
+        min-height: 450px;
+    }
+}
+
+/* CELULARES */
+
+@media (max-width: 767px) {
+    .penguich-dashboard .penguich-wrapper {
+        padding: 14px;
+    }
+
+    .penguich-dashboard .penguich-header {
+        align-items: flex-start;
+    }
+
+    .penguich-dashboard .penguich-header-actions {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .penguich-dashboard .penguich-layout {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .penguich-dashboard .penguich-mascot-panel {
+        min-height: 210px;
+    }
+
+    .penguich-dashboard .penguich-mascot-container {
+        min-height: 210px;
+        padding: 12px;
+    }
+
+    .penguich-dashboard .penguich-mascot-image {
+        max-height: 190px;
+        width: min(100%, 250px);
+    }
+
+    .penguich-dashboard .penguich-cards {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .penguich-dashboard .penguich-card {
+        min-height: 205px;
+        padding: 20px;
+    }
+
+    .penguich-dashboard .penguich-section-heading {
+        text-align: center;
+    }
+
+    .penguich-dashboard .penguich-decoration {
+        display: none;
+    }
+}
+
+
+/* ==========================================
+   PENGUICH - DASHBOARD
+   Estilos exclusivos de usuario.php
+========================================== */
+
+body.penguich-dashboard {
+    --pg-bg: #EAF8EE;
+    --pg-text: #263B4A;
+    --pg-muted: #526775;
+    --pg-blue: #70C9F5;
+    --pg-yellow: #FFD76A;
+    --pg-green: #54C7A2;
+    --pg-purple: #B6A5F6;
+
+    margin: 0;
+    min-height: 100vh;
+    background: var(--pg-bg);
+    color: var(--pg-text);
+    font-family: 'Nunito', sans-serif;
+    overflow-x: hidden;
+}
+
+.penguich-dashboard *,
+.penguich-dashboard *::before,
+.penguich-dashboard *::after {
+    box-sizing: border-box;
+}
+
+.penguich-dashboard .penguich-wrapper {
+    width: min(1440px, 100%);
+    margin: 0 auto;
+    padding: 20px 28px 28px;
+    position: relative;
+    z-index: 1;
+}
+
+/* BARRA SUPERIOR */
+
+.penguich-dashboard .penguich-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    min-height: 64px;
+    margin-bottom: 22px;
+}
+
+.penguich-dashboard .penguich-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.55rem;
+    font-weight: 900;
+    color: #237F70;
+}
+
+.penguich-dashboard .penguich-brand > span:first-child {
+    font-size: 1.9rem;
+}
+
+.penguich-dashboard .penguich-header-actions {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 14px;
+}
+
+.penguich-dashboard .penguich-filter {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 13px;
+    background: #FFFFFF;
+    border: 1px solid #D8E9E2;
+    border-radius: 16px;
+}
+
+.penguich-dashboard .penguich-filter label {
+    font-size: 0.85rem;
+    font-weight: 800;
+}
+
+.penguich-dashboard .penguich-filter select {
+    padding: 8px 12px;
+    border: 1px solid #A7CFC4;
+    border-radius: 10px;
+    background: #FFFFFF;
+    color: var(--pg-text);
+    font-family: inherit;
+    font-size: 0.85rem;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.penguich-dashboard .penguich-logout {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 44px;
+    padding: 10px 18px;
+    background: #FFFFFF;
+    border: 1px solid #E5C7C2;
+    border-radius: 13px;
+    color: #A43F35;
+    font-size: 0.88rem;
+    font-weight: 800;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.2s;
+}
+
+.penguich-dashboard .penguich-logout:hover {
+    background: #FFF0ED;
+    transform: translateY(-2px);
+}
+
+/* DISTRIBUCIÓN 30 / 70 */
+
+.penguich-dashboard .penguich-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 3fr) minmax(0, 7fr);
+    gap: 26px;
+    align-items: stretch;
+}
+
+/* MASCOTA */
+
+.penguich-dashboard .penguich-mascot-panel {
+    min-width: 0;
+    min-height: 550px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.38);
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    border-radius: 28px;
+}
+
+.penguich-dashboard .penguich-mascot-container {
+    width: 100%;
+    min-height: 550px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.penguich-dashboard .penguich-mascot-image {
+    display: block;
+    width: min(100%, 380px);
+    height: auto;
+    max-height: 520px;
+    object-fit: contain;
+    animation: penguichFloat 5s ease-in-out infinite;
+}
+
+/* CONTENIDO DERECHO */
+
+.penguich-dashboard .penguich-main {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.penguich-dashboard .penguich-section-heading {
+    margin-bottom: 20px;
+}
+
+.penguich-dashboard .penguich-eyebrow {
+    display: inline-block;
+    margin-bottom: 5px;
+    font-size: 0.72rem;
+    font-weight: 900;
+    letter-spacing: 1.4px;
+    color: #267B69;
+}
+
+.penguich-dashboard .penguich-section-heading h1 {
+    margin: 0 0 6px;
+    font-size: clamp(1.45rem, 2.2vw, 2rem);
+    line-height: 1.2;
+    font-weight: 900;
+    color: var(--pg-text);
+}
+
+.penguich-dashboard .penguich-section-heading p {
+    margin: 0;
+    color: var(--pg-muted);
+    font-size: 0.95rem;
+}
+
+/* GRID DE CUATRO TARJETAS */
+
+.penguich-dashboard .penguich-cards {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px;
+    flex: 1;
+}
+
+.penguich-dashboard .penguich-card {
+    min-width: 0;
+    min-height: 225px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 23px;
+    border-radius: 25px;
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    box-shadow: 0 8px 20px rgba(40, 75, 65, 0.07);
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+    animation: penguichAppear 0.55s ease both;
+}
+
+.penguich-dashboard .penguich-card:nth-child(2) {
+    animation-delay: 0.08s;
+}
+
+.penguich-dashboard .penguich-card:nth-child(3) {
+    animation-delay: 0.16s;
+}
+
+.penguich-dashboard .penguich-card:nth-child(4) {
+    animation-delay: 0.24s;
+}
+
+.penguich-dashboard .penguich-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 15px 28px rgba(40, 75, 65, 0.12);
+}
+
+/* COLORES DE TARJETAS */
+
+.penguich-dashboard .penguich-card-blue {
+    background: #E3F4FF;
+    --pg-button: #2784B8;
+    --pg-button-hover: #17668F;
+    --pg-button-text: #FFFFFF;
+}
+
+.penguich-dashboard .penguich-card-yellow {
+    background: #FFF3D0;
+    --pg-button: #FFD76A;
+    --pg-button-hover: #F5C34A;
+    --pg-button-text: #263B4A;
+}
+
+.penguich-dashboard .penguich-card-green {
+    background: #DDF6E9;
+    --pg-button: #287F68;
+    --pg-button-hover: #1E6653;
+    --pg-button-text: #FFFFFF;
+}
+
+.penguich-dashboard .penguich-card-purple {
+    background: #EFEAFF;
+    --pg-button: #7658BE;
+    --pg-button-hover: #5C409D;
+    --pg-button-text: #FFFFFF;
+}
+
+/* ICONOS */
+
+.penguich-dashboard .penguich-card-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 58px;
+    height: 58px;
+    margin-bottom: 13px;
+    background: rgba(255, 255, 255, 0.65);
+    border-radius: 18px;
+    font-size: 2rem;
+}
+
+/* TEXTOS */
+
+.penguich-dashboard .penguich-card-content {
+    width: 100%;
+}
+
+.penguich-dashboard .penguich-card h2 {
+    margin: 0 0 8px;
+    font-size: clamp(1rem, 1.4vw, 1.25rem);
+    line-height: 1.3;
+    font-weight: 900;
+    color: #263B4A;
+}
+
+.penguich-dashboard .penguich-card p {
+    margin: 0;
+    color: #445A68;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+/* BOTONES COMPACTOS */
+
+.penguich-dashboard .penguich-card-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    min-height: 44px;
+    max-width: 100%;
+    margin-top: auto;
+    padding: 10px 16px;
+    background: var(--pg-button);
+    color: var(--pg-button-text);
+    border-radius: 13px;
+    font-size: 0.85rem;
+    font-weight: 900;
+    text-align: center;
+    text-decoration: none;
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease;
+}
+
+.penguich-dashboard .penguich-card-button:hover {
+    background: var(--pg-button-hover);
+    transform: translateY(-2px);
+}
+
+.penguich-dashboard .penguich-card-button span {
+    font-size: 1.1rem;
+}
+
+/* ACCESIBILIDAD DE TECLADO */
+
+.penguich-dashboard a:focus-visible,
+.penguich-dashboard select:focus-visible {
+    outline: 3px solid #1C6958;
+    outline-offset: 4px;
+}
+
+/* DECORACIONES */
+
+.penguich-dashboard .penguich-decoration {
+    position: fixed;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.65;
+    font-size: 2rem;
+}
+
+.penguich-dashboard .penguich-star {
+    top: 23%;
+    left: 1%;
+}
+
+.penguich-dashboard .penguich-rocket {
+    bottom: 10%;
+    left: 2%;
+}
+
+.penguich-dashboard .penguich-sparkle {
+    top: 16%;
+    right: 2%;
+}
+
+/* ANIMACIONES */
+
+@keyframes penguichFloat {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+@keyframes penguichAppear {
+    from {
+        opacity: 0;
+        transform: translateY(16px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* FILTROS VISUALES ORIENTATIVOS */
+
+body.penguich-dashboard.protanopia {
+    --pg-bg: #F0F4FA;
+    --pg-text: #25364A;
+    --pg-muted: #48596C;
+    filter: saturate(0.8);
+}
+
+body.penguich-dashboard.deuteranopia {
+    --pg-bg: #EDF3FA;
+    --pg-text: #293B50;
+    --pg-muted: #4D5F70;
+    filter: saturate(0.75);
+}
+
+body.penguich-dashboard.tritanopia {
+    --pg-bg: #F4F5ED;
+    --pg-text: #354139;
+    --pg-muted: #526158;
+    filter: saturate(0.8) hue-rotate(-12deg);
+}
+
+/* TABLETAS */
+
+@media (max-width: 1024px) {
+    .penguich-dashboard .penguich-wrapper {
+        padding: 18px;
+    }
+
+    .penguich-dashboard .penguich-layout {
+        grid-template-columns: minmax(0, 32fr) minmax(0, 68fr);
+        gap: 16px;
+    }
+
+    .penguich-dashboard .penguich-cards {
+        gap: 14px;
+    }
+
+    .penguich-dashboard .penguich-card {
+        padding: 16px;
+        min-height: 230px;
+    }
+
+    .penguich-dashboard .penguich-mascot-panel,
+    .penguich-dashboard .penguich-mascot-container {
+        min-height: 450px;
+    }
+}
+
+/* CELULARES */
+
+@media (max-width: 767px) {
+    .penguich-dashboard .penguich-wrapper {
+        padding: 14px;
+    }
+
+    .penguich-dashboard .penguich-header {
+        align-items: flex-start;
+    }
+
+    .penguich-dashboard .penguich-header-actions {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .penguich-dashboard .penguich-layout {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .penguich-dashboard .penguich-mascot-panel {
+        min-height: 210px;
+    }
+
+    .penguich-dashboard .penguich-mascot-container {
+        min-height: 210px;
+        padding: 12px;
+    }
+
+    .penguich-dashboard .penguich-mascot-image {
+        max-height: 190px;
+        width: min(100%, 250px);
+    }
+
+    .penguich-dashboard .penguich-cards {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .penguich-dashboard .penguich-card {
+        min-height: 205px;
+        padding: 20px;
+    }
+
+    .penguich-dashboard .penguich-section-heading {
+        text-align: center;
+    }
+
+    .penguich-dashboard .penguich-decoration {
+        display: none;
+    }
+}
+
+/* ==========================================
+   PENGUICH - DASHBOARD
+   Estilos exclusivos de usuario.php
+========================================== */
+
+body.penguich-dashboard {
+    --pg-bg: #EAF8EE;
+    --pg-text: #263B4A;
+    --pg-muted: #526775;
+    --pg-blue: #70C9F5;
+    --pg-yellow: #FFD76A;
+    --pg-green: #54C7A2;
+    --pg-purple: #B6A5F6;
+
+    margin: 0;
+    min-height: 100vh;
+    background: var(--pg-bg);
+    color: var(--pg-text);
+    font-family: 'Nunito', sans-serif;
+    overflow-x: hidden;
+}
+
+.penguich-dashboard *,
+.penguich-dashboard *::before,
+.penguich-dashboard *::after {
+    box-sizing: border-box;
+}
+
+.penguich-dashboard .penguich-wrapper {
+    width: min(1440px, 100%);
+    margin: 0 auto;
+    padding: 20px 28px 28px;
+    position: relative;
+    z-index: 1;
+}
+
+/* BARRA SUPERIOR */
+
+.penguich-dashboard .penguich-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    min-height: 64px;
+    margin-bottom: 22px;
+}
+
+.penguich-dashboard .penguich-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.55rem;
+    font-weight: 900;
+    color: #237F70;
+}
+
+.penguich-dashboard .penguich-brand > span:first-child {
+    font-size: 1.9rem;
+}
+
+.penguich-dashboard .penguich-header-actions {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 14px;
+}
+
+.penguich-dashboard .penguich-filter {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 13px;
+    background: #FFFFFF;
+    border: 1px solid #D8E9E2;
+    border-radius: 16px;
+}
+
+.penguich-dashboard .penguich-filter label {
+    font-size: 0.85rem;
+    font-weight: 800;
+}
+
+.penguich-dashboard .penguich-filter select {
+    padding: 8px 12px;
+    border: 1px solid #A7CFC4;
+    border-radius: 10px;
+    background: #FFFFFF;
+    color: var(--pg-text);
+    font-family: inherit;
+    font-size: 0.85rem;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.penguich-dashboard .penguich-logout {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 44px;
+    padding: 10px 18px;
+    background: #FFFFFF;
+    border: 1px solid #E5C7C2;
+    border-radius: 13px;
+    color: #A43F35;
+    font-size: 0.88rem;
+    font-weight: 800;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.2s;
+}
+
+.penguich-dashboard .penguich-logout:hover {
+    background: #FFF0ED;
+    transform: translateY(-2px);
+}
+
+/* DISTRIBUCIÓN 30 / 70 */
+
+.penguich-dashboard .penguich-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 3fr) minmax(0, 7fr);
+    gap: 26px;
+    align-items: stretch;
+}
+
+/* MASCOTA */
+
+.penguich-dashboard .penguich-mascot-panel {
+    min-width: 0;
+    min-height: 550px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.38);
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    border-radius: 28px;
+}
+
+.penguich-dashboard .penguich-mascot-container {
+    width: 100%;
+    min-height: 550px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.penguich-dashboard .penguich-mascot-image {
+    display: block;
+    width: min(100%, 380px);
+    height: auto;
+    max-height: 520px;
+    object-fit: contain;
+    animation: penguichFloat 5s ease-in-out infinite;
+}
+
+/* CONTENIDO DERECHO */
+
+.penguich-dashboard .penguich-main {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.penguich-dashboard .penguich-section-heading {
+    margin-bottom: 20px;
+}
+
+.penguich-dashboard .penguich-eyebrow {
+    display: inline-block;
+    margin-bottom: 5px;
+    font-size: 0.72rem;
+    font-weight: 900;
+    letter-spacing: 1.4px;
+    color: #267B69;
+}
+
+.penguich-dashboard .penguich-section-heading h1 {
+    margin: 0 0 6px;
+    font-size: clamp(1.45rem, 2.2vw, 2rem);
+    line-height: 1.2;
+    font-weight: 900;
+    color: var(--pg-text);
+}
+
+.penguich-dashboard .penguich-section-heading p {
+    margin: 0;
+    color: var(--pg-muted);
+    font-size: 0.95rem;
+}
+
+/* GRID DE CUATRO TARJETAS */
+
+.penguich-dashboard .penguich-cards {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px;
+    flex: 1;
+}
+
+.penguich-dashboard .penguich-card {
+    min-width: 0;
+    min-height: 225px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 23px;
+    border-radius: 25px;
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    box-shadow: 0 8px 20px rgba(40, 75, 65, 0.07);
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+    animation: penguichAppear 0.55s ease both;
+}
+
+.penguich-dashboard .penguich-card:nth-child(2) {
+    animation-delay: 0.08s;
+}
+
+.penguich-dashboard .penguich-card:nth-child(3) {
+    animation-delay: 0.16s;
+}
+
+.penguich-dashboard .penguich-card:nth-child(4) {
+    animation-delay: 0.24s;
+}
+
+.penguich-dashboard .penguich-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 15px 28px rgba(40, 75, 65, 0.12);
+}
+
+/* COLORES DE TARJETAS */
+
+.penguich-dashboard .penguich-card-blue {
+    background: #E3F4FF;
+    --pg-button: #2784B8;
+    --pg-button-hover: #17668F;
+    --pg-button-text: #FFFFFF;
+}
+
+.penguich-dashboard .penguich-card-yellow {
+    background: #FFF3D0;
+    --pg-button: #FFD76A;
+    --pg-button-hover: #F5C34A;
+    --pg-button-text: #263B4A;
+}
+
+.penguich-dashboard .penguich-card-green {
+    background: #DDF6E9;
+    --pg-button: #287F68;
+    --pg-button-hover: #1E6653;
+    --pg-button-text: #FFFFFF;
+}
+
+.penguich-dashboard .penguich-card-purple {
+    background: #EFEAFF;
+    --pg-button: #7658BE;
+    --pg-button-hover: #5C409D;
+    --pg-button-text: #FFFFFF;
+}
+
+/* ICONOS */
+
+.penguich-dashboard .penguich-card-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 58px;
+    height: 58px;
+    margin-bottom: 13px;
+    background: rgba(255, 255, 255, 0.65);
+    border-radius: 18px;
+    font-size: 2rem;
+}
+
+/* TEXTOS */
+
+.penguich-dashboard .penguich-card-content {
+    width: 100%;
+}
+
+.penguich-dashboard .penguich-card h2 {
+    margin: 0 0 8px;
+    font-size: clamp(1rem, 1.4vw, 1.25rem);
+    line-height: 1.3;
+    font-weight: 900;
+    color: #263B4A;
+}
+
+.penguich-dashboard .penguich-card p {
+    margin: 0;
+    color: #445A68;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+/* BOTONES COMPACTOS */
+
+.penguich-dashboard .penguich-card-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    min-height: 44px;
+    max-width: 100%;
+    margin-top: auto;
+    padding: 10px 16px;
+    background: var(--pg-button);
+    color: var(--pg-button-text);
+    border-radius: 13px;
+    font-size: 0.85rem;
+    font-weight: 900;
+    text-align: center;
+    text-decoration: none;
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease;
+}
+
+.penguich-dashboard .penguich-card-button:hover {
+    background: var(--pg-button-hover);
+    transform: translateY(-2px);
+}
+
+.penguich-dashboard .penguich-card-button span {
+    font-size: 1.1rem;
+}
+
+/* ACCESIBILIDAD DE TECLADO */
+
+.penguich-dashboard a:focus-visible,
+.penguich-dashboard select:focus-visible {
+    outline: 3px solid #1C6958;
+    outline-offset: 4px;
+}
+
+/* DECORACIONES */
+
+.penguich-dashboard .penguich-decoration {
+    position: fixed;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.65;
+    font-size: 2rem;
+}
+
+.penguich-dashboard .penguich-star {
+    top: 23%;
+    left: 1%;
+}
+
+.penguich-dashboard .penguich-rocket {
+    bottom: 10%;
+    left: 2%;
+}
+
+.penguich-dashboard .penguich-sparkle {
+    top: 16%;
+    right: 2%;
+}
+
+/* ANIMACIONES */
+
+@keyframes penguichFloat {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+@keyframes penguichAppear {
+    from {
+        opacity: 0;
+        transform: translateY(16px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* FILTROS VISUALES ORIENTATIVOS */
+
+body.penguich-dashboard.protanopia {
+    --pg-bg: #F0F4FA;
+    --pg-text: #25364A;
+    --pg-muted: #48596C;
+    filter: saturate(0.8);
+}
+
+body.penguich-dashboard.deuteranopia {
+    --pg-bg: #EDF3FA;
+    --pg-text: #293B50;
+    --pg-muted: #4D5F70;
+    filter: saturate(0.75);
+}
+
+body.penguich-dashboard.tritanopia {
+    --pg-bg: #F4F5ED;
+    --pg-text: #354139;
+    --pg-muted: #526158;
+    filter: saturate(0.8) hue-rotate(-12deg);
+}
+
+/* TABLETAS */
+
+@media (max-width: 1024px) {
+    .penguich-dashboard .penguich-wrapper {
+        padding: 18px;
+    }
+
+    .penguich-dashboard .penguich-layout {
+        grid-template-columns: minmax(0, 32fr) minmax(0, 68fr);
+        gap: 16px;
+    }
+
+    .penguich-dashboard .penguich-cards {
+        gap: 14px;
+    }
+
+    .penguich-dashboard .penguich-card {
+        padding: 16px;
+        min-height: 230px;
+    }
+
+    .penguich-dashboard .penguich-mascot-panel,
+    .penguich-dashboard .penguich-mascot-container {
+        min-height: 450px;
+    }
+}
+
+/* CELULARES */
+
+@media (max-width: 767px) {
+    .penguich-dashboard .penguich-wrapper {
+        padding: 14px;
+    }
+
+    .penguich-dashboard .penguich-header {
+        align-items: flex-start;
+    }
+
+    .penguich-dashboard .penguich-header-actions {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .penguich-dashboard .penguich-layout {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .penguich-dashboard .penguich-mascot-panel {
+        min-height: 210px;
+    }
+
+    .penguich-dashboard .penguich-mascot-container {
+        min-height: 210px;
+        padding: 12px;
+    }
+
+    .penguich-dashboard .penguich-mascot-image {
+        max-height: 190px;
+        width: min(100%, 250px);
+    }
+
+    .penguich-dashboard .penguich-cards {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .penguich-dashboard .penguich-card {
+        min-height: 205px;
+        padding: 20px;
+    }
+
+    .penguich-dashboard .penguich-section-heading {
+        text-align: center;
+    }
+
+    .penguich-dashboard .penguich-decoration {
+        display: none;
+    }
+}
+
+/* REDUCIR MOVIMIENTO */
+
+@media (prefers-reduced-motion: reduce) {
+    .penguich-dashboard *,
+    .penguich-dashboard *::before,
+    .penguich-dashboard *::after {
+        animation: none !important;
+        transition: none !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* ==========================================
+   PENGUICH - SISTEMA DE FILTROS VISUALES
+   Cambia fondo, tarjetas, botones y textos
+========================================== */
+
+/* PALETA ESTÁNDAR */
+
+body.penguich-dashboard {
+    --pg-bg: #EAF8EE;
+    --pg-text: #263B4A;
+    --pg-muted: #526775;
+
+    --pg-panel: #FFFFFF;
+    --pg-header-bg: #FFFFFF;
+    --pg-border: #D8E9E2;
+
+    --pg-card-blue: #E3F4FF;
+    --pg-card-yellow: #FFF3D0;
+    --pg-card-green: #DDF6E9;
+    --pg-card-purple: #EFEAFF;
+
+    --pg-btn-blue: #2784B8;
+    --pg-btn-blue-hover: #17668F;
+
+    --pg-btn-yellow: #FFD76A;
+    --pg-btn-yellow-hover: #F5C34A;
+
+    --pg-btn-green: #287F68;
+    --pg-btn-green-hover: #1E6653;
+
+    --pg-btn-purple: #7658BE;
+    --pg-btn-purple-hover: #5C409D;
+
+    --pg-accent: #237F70;
+}
+
+/* PROTANOPÍA
+   Reduce la dependencia del rojo.
+   Prioriza azules, amarillos y neutros.
+*/
+
+body.penguich-dashboard.protanopia {
+    --pg-bg: #EDF3FC;
+    --pg-text: #202F49;
+    --pg-muted: #465A72;
+
+    --pg-panel: #FFFFFF;
+    --pg-header-bg: #F7FAFF;
+    --pg-border: #B8CCE5;
+
+    --pg-card-blue: #DCEAFF;
+    --pg-card-yellow: #FFF0BD;
+    --pg-card-green: #E4EAF5;
+    --pg-card-purple: #EDE5F7;
+
+    --pg-btn-blue: #235DAB;
+    --pg-btn-blue-hover: #17447E;
+
+    --pg-btn-yellow: #F3CE63;
+    --pg-btn-yellow-hover: #E6B946;
+
+    --pg-btn-green: #455D88;
+    --pg-btn-green-hover: #30456C;
+
+    --pg-btn-purple: #62549C;
+    --pg-btn-purple-hover: #493B80;
+
+    --pg-accent: #235DAB;
+}
+
+/* DEUTERANOPÍA
+   Reduce la dependencia del verde.
+   Utiliza azul, ámbar y violeta.
+*/
+
+body.penguich-dashboard.deuteranopia {
+    --pg-bg: #F0F4FC;
+    --pg-text: #24334B;
+    --pg-muted: #4A5B72;
+
+    --pg-panel: #FFFFFF;
+    --pg-header-bg: #F8FAFF;
+    --pg-border: #C3D1E8;
+
+    --pg-card-blue: #DFEDFF;
+    --pg-card-yellow: #FFF1CB;
+    --pg-card-green: #E8E9F8;
+    --pg-card-purple: #F1E5FA;
+
+    --pg-btn-blue: #2468AC;
+    --pg-btn-blue-hover: #174B80;
+
+    --pg-btn-yellow: #F2CF70;
+    --pg-btn-yellow-hover: #E4B64E;
+
+    --pg-btn-green: #515C98;
+    --pg-btn-green-hover: #3C477B;
+
+    --pg-btn-purple: #79559D;
+    --pg-btn-purple-hover: #5E3C80;
+
+    --pg-accent: #305F9B;
+}
+
+/* TRITANOPÍA
+   Reduce la dependencia del azul-amarillo.
+   Prioriza tonos rosados, turquesa y neutros.
+*/
+
+body.penguich-dashboard.tritanopia {
+    --pg-bg: #F8F1F2;
+    --pg-text: #3A2936;
+    --pg-muted: #685260;
+
+    --pg-panel: #FFFFFF;
+    --pg-header-bg: #FFF9FA;
+    --pg-border: #E7CDD5;
+
+    --pg-card-blue: #F7E0E8;
+    --pg-card-yellow: #F2E6E9;
+    --pg-card-green: #DDF2ED;
+    --pg-card-purple: #F1E0ED;
+
+    --pg-btn-blue: #A23E66;
+    --pg-btn-blue-hover: #812C50;
+
+    --pg-btn-yellow: #E8BAC8;
+    --pg-btn-yellow-hover: #D89CAF;
+
+    --pg-btn-green: #276F65;
+    --pg-btn-green-hover: #1C574F;
+
+    --pg-btn-purple: #894B77;
+    --pg-btn-purple-hover: #6C355C;
+
+    --pg-accent: #934166;
+}
+
+/* ==========================================
+   APLICAR VARIABLES A TODA LA INTERFAZ
+========================================== */
+
+/* FONDO GENERAL */
+
+body.penguich-dashboard {
+    background: var(--pg-bg) !important;
+    color: var(--pg-text) !important;
+    filter: none !important;
+    transition:
+        background-color 0.3s ease,
+        color 0.3s ease;
+}
+
+/* CONTENEDOR DE MASCOTA */
+
+.penguich-dashboard .penguich-mascot-panel {
+    background: var(--pg-panel);
+    border-color: var(--pg-border);
+}
+
+/* MARCA */
+
+.penguich-dashboard .penguich-brand,
+.penguich-dashboard .penguich-eyebrow {
+    color: var(--pg-accent);
+}
+
+/* BARRA DE FILTROS */
+
+.penguich-dashboard .penguich-filter {
+    background: var(--pg-header-bg);
+    border-color: var(--pg-border);
+}
+
+.penguich-dashboard .penguich-filter label {
+    color: var(--pg-text);
+}
+
+.penguich-dashboard .penguich-filter select {
+    background: var(--pg-panel);
+    color: var(--pg-text);
+    border-color: var(--pg-border);
+}
+
+/* TEXTOS GENERALES */
+
+.penguich-dashboard .penguich-section-heading h1,
+.penguich-dashboard .penguich-card h2 {
+    color: var(--pg-text);
+}
+
+.penguich-dashboard .penguich-section-heading p,
+.penguich-dashboard .penguich-card p {
+    color: var(--pg-muted);
+}
+
+/* FONDOS DE LAS CUATRO TARJETAS */
+
+.penguich-dashboard .penguich-card-blue {
+    background: var(--pg-card-blue);
+    --pg-button: var(--pg-btn-blue);
+    --pg-button-hover: var(--pg-btn-blue-hover);
+    --pg-button-text: #FFFFFF;
+}
+
+.penguich-dashboard .penguich-card-yellow {
+    background: var(--pg-card-yellow);
+    --pg-button: var(--pg-btn-yellow);
+    --pg-button-hover: var(--pg-btn-yellow-hover);
+    --pg-button-text: #263B4A;
+}
+
+.penguich-dashboard .penguich-card-green {
+    background: var(--pg-card-green);
+    --pg-button: var(--pg-btn-green);
+    --pg-button-hover: var(--pg-btn-green-hover);
+    --pg-button-text: #FFFFFF;
+}
+
+.penguich-dashboard .penguich-card-purple {
+    background: var(--pg-card-purple);
+    --pg-button: var(--pg-btn-purple);
+    --pg-button-hover: var(--pg-btn-purple-hover);
+    --pg-button-text: #FFFFFF;
+}
+
+/* BOTONES */
+
+.penguich-dashboard .penguich-card-button {
+    background: var(--pg-button);
+    color: var(--pg-button-text);
+}
+
+.penguich-dashboard .penguich-card-button:hover {
+    background: var(--pg-button-hover);
+}
+
+/* ICONOS */
+
+.penguich-dashboard .penguich-card-icon {
+    background: var(--pg-panel);
+}
+
+/* CERRAR SESIÓN */
+
+.penguich-dashboard .penguich-logout {
+    background: var(--pg-header-bg);
+    border-color: var(--pg-border);
+    color: var(--pg-text);
+}
+
+.penguich-dashboard .penguich-logout:hover {
+    background: var(--pg-card-blue);
+}
+
+/* ENFOQUE ACCESIBLE */
+
+.penguich-dashboard a:focus-visible,
+.penguich-dashboard select:focus-visible {
+    outline: 3px solid var(--pg-accent);
+    outline-offset: 4px;
+}
+
+/* RESPETAR MOVIMIENTO REDUCIDO */
+
+@media (prefers-reduced-motion: reduce) {
+    body.penguich-dashboard {
+        transition: none !important;
+    }
+}
