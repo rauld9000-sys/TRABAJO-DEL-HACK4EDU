@@ -191,11 +191,43 @@ $usuario_id = hash('sha256', (string) $_SESSION['usuario']);
     </div>
 
     <div class="pg-chat-suggestions">
-        <button type="button" data-chat="matematicas">🔢 Matemáticas</button>
-        <button type="button" data-chat="lectura">📚 Lectura</button>
-        <button type="button" data-chat="creatividad">🎨 Creatividad</button>
-        <button type="button" data-chat="emociones">💛 Emociones</button>
-        <button type="button" data-chat="concentracion">🧩 Concentración</button>
+
+<div class="pg-chat-suggestions pg-talent-suggestions">
+
+    <button type="button" data-chat="deportes">
+        ⚽ Deportes y movimiento
+    </button>
+
+    <button type="button" data-chat="arte">
+        🎨 Arte e imaginación
+    </button>
+
+    <button type="button" data-chat="estrategia">
+        ♟️ Estrategia y juegos
+    </button>
+
+    <button type="button" data-chat="musica">
+        🎵 Música y ritmo
+    </button>
+
+    <button type="button" data-chat="exploracion">
+        🔍 Exploración y ciencia
+    </button>
+
+    <button type="button" data-chat="liderazgo">
+        🤝 Liderazgo y equipo
+    </button>
+
+    <button type="button" data-chat="memoria">
+        🧠 Memoria y aprendizaje
+    </button>
+
+    <button type="button" data-chat="expresion">
+        🎭 Expresión y confianza
+    </button>
+
+</div>
+
     </div>
 
     <form id="chatForm" class="pg-chat-form">
@@ -877,33 +909,127 @@ $("taskForm").addEventListener("submit", e => {
 renderTasks();
 
 /* CHAT EDUCATIVO INICIAL */
+
 const chatTopics = {
-    matematicas: [
-        "🔢 ¡Vamos a jugar con números! Cuenta cinco objetos que tengas cerca. Después intenta contar otros cinco.",
-        "🧮 Imagina que tienes tres manzanas y recibes dos más. ¿Cuántas tienes ahora?",
-        "🔍 Busca objetos con forma de círculo, cuadrado y triángulo."
+
+    deportes: [
+        "⚽ ¡Exploremos tu coordinación! Coloca tres objetos separados en el suelo y camina alrededor de ellos sin tocarlos. ¿Qué recorrido se te ocurre?",
+
+        "🏀 ¡Reto de precisión! Intenta lanzar una pelota suave dentro de una caja. Puedes cambiar la distancia y probar distintas técnicas.",
+
+        "🤸 ¡Descubre tu equilibrio! Mantente sobre un pie unos segundos, cerca de una pared o con apoyo si lo necesitas. ¿Qué te ayuda a mantenerte estable?",
+
+        "🏃 ¡Diseña un deporte nuevo! Inventa sus reglas, el objetivo y cómo podrían participar personas con distintas habilidades.",
+
+        "🧠 ¡Movimiento y memoria! Inventa una secuencia de tres movimientos. Repítela y después agrega uno más.",
+
+        "🥎 ¡Explora tu puntería! Construye un blanco grande de papel y lanza una pelota de tela. Prueba distintas formas de apuntar."
     ],
-    lectura: [
-        "📚 Elige una palabra que te guste. ¿Puedes inventar una frase con ella?",
-        "📖 Lee una oración corta y cuéntame con tus propias palabras qué significa.",
-        "🔤 Busca tres objetos cuyos nombres comiencen con la misma letra."
+
+    arte: [
+        "🎨 ¡Reto de imaginación! Dibuja un animal que combine tres criaturas diferentes. ¿Qué habilidades especiales tendría?",
+
+        "🏗️ ¡Arquitectura fantástica! Diseña una casa que pueda flotar. Piensa qué materiales necesitaría.",
+
+        "🧵 ¡Diseñador por un día! Inventa un uniforme para un deporte que todavía no existe.",
+
+        "🖌️ ¡Arte con emociones! Representa la alegría, la calma o la sorpresa usando solamente colores y formas.",
+
+        "♻️ ¡Inventor creativo! Utiliza materiales reciclados limpios para construir un objeto útil.",
+
+        "🧠 ¡Memoria visual! Observa un dibujo durante unos segundos, ocúltalo e intenta reproducir sus detalles."
     ],
-    creatividad: [
-        "🎨 Dibuja una criatura que combine dos animales.",
-        "🚀 Imagina una máquina que ayude a cuidar el planeta.",
-        "🌈 Inventa una historia que empiece con una puerta misteriosa."
+
+    estrategia: [
+        "♟️ ¡Piensa como estratega! Imagina que tienes que cruzar un río con tres objetos. ¿Qué necesitarías planear primero?",
+
+        "🧩 ¡Detective de patrones! Crea una secuencia con colores o figuras y pide a alguien que descubra cuál sigue.",
+
+        "🏰 ¡Constructor de soluciones! Diseña un puente de papel que pueda sostener un objeto ligero.",
+
+        "🎲 ¡Inventor de juegos! Crea un juego de mesa con tres reglas y una forma de ganar.",
+
+        "🔍 ¡Reto de decisiones! Piensa en dos maneras de resolver un problema. ¿Qué ventajas tiene cada una?",
+
+        "🧠 ¡Entrena tu planificación! Antes de comenzar una construcción, imagina los primeros tres pasos."
     ],
-    emociones: [
-        "💛 Todas las emociones son importantes. ¿Quieres dibujar cómo te sientes?",
-        "🌿 Si necesitas tranquilidad, puedes respirar suavemente y pedir compañía.",
-        "🌻 Piensa en algo pequeño que te haya gustado hoy."
+
+    musica: [
+        "🥁 ¡Crea tu propio ritmo! Haz una secuencia de palmadas y golpes suaves sobre la mesa. Después repítela.",
+
+        "🎵 ¡Memoria musical! Escucha una secuencia corta de sonidos e intenta reproducirla.",
+
+        "🎤 ¡Compositor por un día! Inventa una canción sobre algo que te guste mucho.",
+
+        "🎼 ¡Explorador de sonidos! Busca cinco objetos seguros que produzcan sonidos diferentes.",
+
+        "💃 ¡Movimiento y ritmo! Crea una pequeña coreografía de cuatro movimientos.",
+
+        "🧠 ¡Aprende con música! Inventa una canción para recordar una lista de palabras o una secuencia."
     ],
-    concentracion: [
-        "🧩 Prueba una actividad corta: observa cinco objetos, cierra los ojos y recuerda cuáles eran.",
-        "🎯 Elige una tarea pequeña. Puedes hacerla paso a paso y descansar cuando lo necesites.",
-        "🐧 Busca tres cosas de color azul a tu alrededor."
+
+    exploracion: [
+        "🌿 ¡Explorador de naturaleza! Observa una hoja y describe su forma, color y textura.",
+
+        "🔎 ¡Detective de detalles! Elige un objeto y encuentra cinco características que normalmente no notas.",
+
+        "🚀 ¡Diseñador espacial! Imagina una herramienta que ayude a explorar otro planeta.",
+
+        "🌦️ ¡Observador del clima! Mira el cielo y describe las nubes. ¿Qué cambios notas durante el día?",
+
+        "🧪 ¡Pequeño investigador! Coloca un objeto que flote y otro que se hunda en agua, con supervisión adulta. ¿Qué diferencias observas?",
+
+        "🧠 ¡Recuerda lo observado! Después de explorar un lugar, intenta dibujar cinco cosas que viste."
+    ],
+
+    liderazgo: [
+        "🤝 ¡Líder de equipo! Imagina que organizas un juego para cinco personas. ¿Cómo harías para que todas participen?",
+
+        "💬 ¡Comunicación creativa! Explica las reglas de un juego de manera sencilla y amable.",
+
+        "🌟 ¡Resolución de conflictos! Dos compañeros quieren usar el mismo juguete. Piensa en tres soluciones justas.",
+
+        "🎯 ¡Organizador de misiones! Planea una actividad en equipo y reparte tareas según lo que cada persona disfruta.",
+
+        "💛 ¡Empatía en acción! Imagina cómo ayudarías a alguien que se siente excluido de un juego.",
+
+        "🧠 ¡Memoria colaborativa! Crea una historia con otra persona. Cada participante debe recordar lo anterior y agregar una frase."
+    ],
+
+    memoria: [
+        "🧠 ¡Memoria de detective! Observa cinco objetos durante 20 segundos. Después intenta recordar sus nombres sin mirar.",
+
+        "🎨 ¡Memoria con dibujos! Representa una idea mediante un dibujo y úsalo para recordarla después.",
+
+        "🎵 ¡Memoria musical! Convierte una lista de palabras en una canción divertida.",
+
+        "🗣️ ¡Enséñale a Penguich! Explica con tus propias palabras algo que aprendiste hoy.",
+
+        "🧩 ¡Agrupa para recordar! Organiza varios objetos o palabras en grupos que tengan algo en común.",
+
+        "📅 ¡Recuerda otro día! Aprende tres datos pequeños hoy, intenta recordarlos mañana y vuelve a practicarlos más adelante.",
+
+        "🔄 ¡Recupera sin mirar! Después de aprender algo, cierra el libro e intenta decir lo que recuerdas. Luego revisa qué faltó.",
+
+        "🏃 ¡Aprende en movimiento! Asocia una palabra o concepto con un gesto y úsalo para practicar."
+    ],
+
+    expresion: [
+        "🎭 ¡Actor por un día! Representa una emoción sin hablar. ¿Puede alguien adivinarla?",
+
+        "🎤 ¡Cuenta una historia! Inventa una aventura que tenga un personaje, un problema y una solución.",
+
+        "🗣️ ¡Tu voz importa! Explica algo que te entusiasme durante un minuto, sin preocuparte por hacerlo perfecto.",
+
+        "🎨 ¡Expresión sin palabras! Comunica una idea mediante dibujos o movimientos.",
+
+        "🌟 ¡Descubre tus fortalezas! Piensa en tres cosas que disfrutas hacer, aunque todavía estés aprendiendo.",
+
+        "💛 ¡Reto de confianza! Recuerda algo que antes te costaba y ahora haces con mayor facilidad."
     ]
+
 };
+
 
 const chatMessages = $("chatMessages");
 
@@ -925,26 +1051,49 @@ function chooseResponse(topic) {
     return options[Math.floor(Math.random() * options.length)];
 }
 
+
 function detectTopic(text) {
-    const value = text.toLowerCase();
 
-    if (/matem|número|numero|sumar|restar|contar/.test(value))
-        return "matematicas";
+    const value = text
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "");
 
-    if (/leer|lectura|cuento|palabra|escribir/.test(value))
-        return "lectura";
+    if (/deporte|futbol|basquet|correr|saltar|pelota|equilibrio|coordinacion|agilidad|movimiento/.test(value)) {
+        return "deportes";
+    }
 
-    if (/dibujar|crear|inventar|imaginar|arte/.test(value))
-        return "creatividad";
+    if (/arte|dibujar|pintar|crear|inventar|disenar|imaginacion|manualidad|construir/.test(value)) {
+        return "arte";
+    }
 
-    if (/triste|miedo|nervios|enojo|feliz|emocion|ansiedad/.test(value))
-        return "emociones";
+    if (/estrategia|ajedrez|logica|rompecabezas|resolver|planear|juego de mesa|patron/.test(value)) {
+        return "estrategia";
+    }
 
-    if (/atenci|concentr|distra|memoria/.test(value))
-        return "concentracion";
+    if (/musica|cantar|ritmo|bailar|instrumento|sonido|cancion/.test(value)) {
+        return "musica";
+    }
+
+    if (/explorar|naturaleza|ciencia|experimento|investigar|descubrir|observar|animales|plantas/.test(value)) {
+        return "exploracion";
+    }
+
+    if (/lider|equipo|ayudar|organizar|colaborar|companeros|amistad/.test(value)) {
+        return "liderazgo";
+    }
+
+    if (/memoria|recordar|memorizar|aprender|estudiar|retener|olvidar|informacion|concentracion/.test(value)) {
+        return "memoria";
+    }
+
+    if (/hablar|expresar|actuar|teatro|confianza|timidez|historia|emociones|sentimientos/.test(value)) {
+        return "expresion";
+    }
 
     return null;
 }
+
 
 function replyToChat(text, forcedTopic = null) {
     addChatMessage(text, "user");
@@ -953,8 +1102,7 @@ function replyToChat(text, forcedTopic = null) {
 
     const response = topic
         ? chooseResponse(topic)
-        : "🐧 ¡Gracias por contarme! Todavía tengo respuestas preparadas. Puedes elegir matemáticas, lectura, creatividad, emociones o concentración para que te sugiera una actividad.";
-
+       : "🐧 ¡Qué interesante lo que me cuentas! Podemos explorar deportes, arte, música, estrategia, naturaleza, liderazgo, memoria o expresión. Elige una aventura y descubrirás actividades para desarrollar nuevas habilidades. 💚";
     addChatMessage(response, "bot");
 }
 
