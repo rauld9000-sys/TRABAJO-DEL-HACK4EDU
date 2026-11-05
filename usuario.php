@@ -1185,7 +1185,7 @@ $("saveGoodThing").addEventListener("click", () => {
 
     if (save("goodThing", text)) {
         $("goodThingStatus").textContent =
-            "💛 Tu recuerdo quedó guardado en este navegador.";
+            "💛 Tu recuerdo quedó guardado en tu rincon.";
     }
 });
 
