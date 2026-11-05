@@ -298,7 +298,7 @@ $usuario_id = hash('sha256', (string) $_SESSION['usuario']);
     <div class="pg-panel-heading">
         <div>
             <span class="pg-kicker">CONOCE TUS EMOCIONES</span>
-            <h2>💖 Mi rincón de bienestar</h2>
+            <h2>💖 Mi baul de recuerdos</h2>
         </div>
     </div>
 
@@ -1185,7 +1185,7 @@ $("saveGoodThing").addEventListener("click", () => {
 
     if (save("goodThing", text)) {
         $("goodThingStatus").textContent =
-            "💛 Tu recuerdo quedó guardado en tu rincon.";
+            "💛 Tu recuerdo quedó guardado en tu baul.";
     }
 });
 
