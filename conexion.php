@@ -1,4 +1,3 @@
-
 <?php
 session_start();
 
@@ -15,26 +14,11 @@ if (!in_array($modo, ["login", "registro"], true)) {
     $modo = "login";
 }
 
-/*
-IMPORTANTE:
-
-No redirigimos automáticamente cuando existe
-una sesión anterior.
-
-Esto permite abrir el formulario para crear
-otra cuenta o iniciar sesión con otro usuario.
-
-La sesión anterior se sustituye únicamente
-cuando el nuevo acceso se completa correctamente.
-*/
-
 /* =========================================
    PROCESAR FORMULARIO
 ========================================= */
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-
-    // CONEXIÓN MYSQL EXISTENTE
 
     $servidor = "localhost";
     $usuario_db = "root";
@@ -79,13 +63,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             );
 
             $stmt->bind_param("s", $usuario);
-
             $stmt->execute();
-
             $resultado = $stmt->get_result();
-
             $cuenta = $resultado->fetch_assoc();
-
             $stmt->close();
 
             /* =====================================
@@ -101,15 +81,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
                 } else {
 
-                    // La contraseña puede ser sencilla.
-                    // Ejemplo: numero1
-
-                    $hash = password_hash(
-                        $contrasena,
-                        PASSWORD_DEFAULT
-                    );
-
-                    /* GUARDAR EN MYSQL */
+                    /* GUARDAR EN MYSQL SIN CIFRADO (TEXTO PLANO) */
 
                     $insertar = $conexion->prepare(
                         "INSERT INTO `usuarios`
@@ -117,31 +89,25 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                          VALUES (?, ?)"
                     );
 
+                    // Se guarda la contraseña tal cual la escribió el usuario
                     $insertar->bind_param(
                         "ss",
                         $usuario,
-                        $hash
+                        $contrasena
                     );
 
                     $insertar->execute();
-
                     $insertar->close();
 
                     /* =================================
                        INICIAR SESIÓN AUTOMÁTICAMENTE
                     ================================= */
 
-                    // Sustituir sesión anterior.
                     $_SESSION = [];
-
                     session_regenerate_id(true);
-
                     $_SESSION["usuario"] = $usuario;
-
-                    // Guardar sesión.
                     session_write_close();
 
-                    // Entrar directamente al programa.
                     header("Location: usuario.php");
                     exit();
                 }
@@ -155,58 +121,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 $acceso = false;
 
                 if ($cuenta) {
+                    $contrasena_guardada = (string) $cuenta["contraseña"];
 
-                    $contrasena_guardada =
-                        (string) $cuenta["contraseña"];
-
-                    $info = password_get_info(
-                        $contrasena_guardada
-                    );
-
-                    if ($info["algo"] !== null) {
-
-                        // Contraseña con hash.
-                        $acceso = password_verify(
-                            $contrasena,
-                            $contrasena_guardada
-                        );
-
-                    } else {
-
-                        // Compatibilidad con contraseñas
-                        // anteriores guardadas en texto plano.
-
-                        $acceso = hash_equals(
-                            $contrasena_guardada,
-                            $contrasena
-                        );
-
-                        if ($acceso) {
-
-                            // Actualizar contraseña antigua.
-
-                            $nuevo_hash = password_hash(
-                                $contrasena,
-                                PASSWORD_DEFAULT
-                            );
-
-                            $actualizar = $conexion->prepare(
-                                "UPDATE `usuarios`
-                                 SET `contraseña` = ?
-                                 WHERE `usuario` = ?"
-                            );
-
-                            $actualizar->bind_param(
-                                "ss",
-                                $nuevo_hash,
-                                $cuenta["usuario"]
-                            );
-
-                            $actualizar->execute();
-
-                            $actualizar->close();
-                        }
-                    }
+                    // Comparación directa en texto plano de forma segura
+                    $acceso = hash_equals($contrasena_guardada, $contrasena);
                 }
 
                 /* =====================================
@@ -215,14 +133,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
                 if ($acceso) {
 
-                    // Sustituir sesión anterior.
                     $_SESSION = [];
-
                     session_regenerate_id(true);
-
-                    $_SESSION["usuario"] =
-                        $cuenta["usuario"];
-
+                    $_SESSION["usuario"] = $cuenta["usuario"];
                     session_write_close();
 
                     header("Location: usuario.php");

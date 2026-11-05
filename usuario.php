@@ -244,10 +244,11 @@ $usuario_id = hash('sha256', (string) $_SESSION['usuario']);
         </button>
     </form>
 
-    <small class="pg-disclaimer">
-        Penguich todavía no utiliza inteligencia artificial.
-        No escribas información privada. Si algo te preocupa,
-        puedes hablar con un adulto de confianza.
+    <<small class="pg-disclaimer">
+     🐧 Penguich utiliza respuestas educativas locales
+      y puede consultar inteligencia artificial para ayudarte
+      a aprender. No compartas información personal.
+      Si algo te preocupa, habla con un adulto de confianza.
     </small>
 </section>
 
@@ -908,222 +909,190 @@ $("taskForm").addEventListener("submit", e => {
 
 renderTasks();
 
-/* CHAT EDUCATIVO INICIAL */
 
-const chatTopics = {
-
-    deportes: [
-        "⚽ ¡Exploremos tu coordinación! Coloca tres objetos separados en el suelo y camina alrededor de ellos sin tocarlos. ¿Qué recorrido se te ocurre?",
-
-        "🏀 ¡Reto de precisión! Intenta lanzar una pelota suave dentro de una caja. Puedes cambiar la distancia y probar distintas técnicas.",
-
-        "🤸 ¡Descubre tu equilibrio! Mantente sobre un pie unos segundos, cerca de una pared o con apoyo si lo necesitas. ¿Qué te ayuda a mantenerte estable?",
-
-        "🏃 ¡Diseña un deporte nuevo! Inventa sus reglas, el objetivo y cómo podrían participar personas con distintas habilidades.",
-
-        "🧠 ¡Movimiento y memoria! Inventa una secuencia de tres movimientos. Repítela y después agrega uno más.",
-
-        "🥎 ¡Explora tu puntería! Construye un blanco grande de papel y lanza una pelota de tela. Prueba distintas formas de apuntar."
-    ],
-
-    arte: [
-        "🎨 ¡Reto de imaginación! Dibuja un animal que combine tres criaturas diferentes. ¿Qué habilidades especiales tendría?",
-
-        "🏗️ ¡Arquitectura fantástica! Diseña una casa que pueda flotar. Piensa qué materiales necesitaría.",
-
-        "🧵 ¡Diseñador por un día! Inventa un uniforme para un deporte que todavía no existe.",
-
-        "🖌️ ¡Arte con emociones! Representa la alegría, la calma o la sorpresa usando solamente colores y formas.",
-
-        "♻️ ¡Inventor creativo! Utiliza materiales reciclados limpios para construir un objeto útil.",
-
-        "🧠 ¡Memoria visual! Observa un dibujo durante unos segundos, ocúltalo e intenta reproducir sus detalles."
-    ],
-
-    estrategia: [
-        "♟️ ¡Piensa como estratega! Imagina que tienes que cruzar un río con tres objetos. ¿Qué necesitarías planear primero?",
-
-        "🧩 ¡Detective de patrones! Crea una secuencia con colores o figuras y pide a alguien que descubra cuál sigue.",
-
-        "🏰 ¡Constructor de soluciones! Diseña un puente de papel que pueda sostener un objeto ligero.",
-
-        "🎲 ¡Inventor de juegos! Crea un juego de mesa con tres reglas y una forma de ganar.",
-
-        "🔍 ¡Reto de decisiones! Piensa en dos maneras de resolver un problema. ¿Qué ventajas tiene cada una?",
-
-        "🧠 ¡Entrena tu planificación! Antes de comenzar una construcción, imagina los primeros tres pasos."
-    ],
-
-    musica: [
-        "🥁 ¡Crea tu propio ritmo! Haz una secuencia de palmadas y golpes suaves sobre la mesa. Después repítela.",
-
-        "🎵 ¡Memoria musical! Escucha una secuencia corta de sonidos e intenta reproducirla.",
-
-        "🎤 ¡Compositor por un día! Inventa una canción sobre algo que te guste mucho.",
-
-        "🎼 ¡Explorador de sonidos! Busca cinco objetos seguros que produzcan sonidos diferentes.",
-
-        "💃 ¡Movimiento y ritmo! Crea una pequeña coreografía de cuatro movimientos.",
-
-        "🧠 ¡Aprende con música! Inventa una canción para recordar una lista de palabras o una secuencia."
-    ],
-
-    exploracion: [
-        "🌿 ¡Explorador de naturaleza! Observa una hoja y describe su forma, color y textura.",
-
-        "🔎 ¡Detective de detalles! Elige un objeto y encuentra cinco características que normalmente no notas.",
-
-        "🚀 ¡Diseñador espacial! Imagina una herramienta que ayude a explorar otro planeta.",
-
-        "🌦️ ¡Observador del clima! Mira el cielo y describe las nubes. ¿Qué cambios notas durante el día?",
-
-        "🧪 ¡Pequeño investigador! Coloca un objeto que flote y otro que se hunda en agua, con supervisión adulta. ¿Qué diferencias observas?",
-
-        "🧠 ¡Recuerda lo observado! Después de explorar un lugar, intenta dibujar cinco cosas que viste."
-    ],
-
-    liderazgo: [
-        "🤝 ¡Líder de equipo! Imagina que organizas un juego para cinco personas. ¿Cómo harías para que todas participen?",
-
-        "💬 ¡Comunicación creativa! Explica las reglas de un juego de manera sencilla y amable.",
-
-        "🌟 ¡Resolución de conflictos! Dos compañeros quieren usar el mismo juguete. Piensa en tres soluciones justas.",
-
-        "🎯 ¡Organizador de misiones! Planea una actividad en equipo y reparte tareas según lo que cada persona disfruta.",
-
-        "💛 ¡Empatía en acción! Imagina cómo ayudarías a alguien que se siente excluido de un juego.",
-
-        "🧠 ¡Memoria colaborativa! Crea una historia con otra persona. Cada participante debe recordar lo anterior y agregar una frase."
-    ],
-
-    memoria: [
-        "🧠 ¡Memoria de detective! Observa cinco objetos durante 20 segundos. Después intenta recordar sus nombres sin mirar.",
-
-        "🎨 ¡Memoria con dibujos! Representa una idea mediante un dibujo y úsalo para recordarla después.",
-
-        "🎵 ¡Memoria musical! Convierte una lista de palabras en una canción divertida.",
-
-        "🗣️ ¡Enséñale a Penguich! Explica con tus propias palabras algo que aprendiste hoy.",
-
-        "🧩 ¡Agrupa para recordar! Organiza varios objetos o palabras en grupos que tengan algo en común.",
-
-        "📅 ¡Recuerda otro día! Aprende tres datos pequeños hoy, intenta recordarlos mañana y vuelve a practicarlos más adelante.",
-
-        "🔄 ¡Recupera sin mirar! Después de aprender algo, cierra el libro e intenta decir lo que recuerdas. Luego revisa qué faltó.",
-
-        "🏃 ¡Aprende en movimiento! Asocia una palabra o concepto con un gesto y úsalo para practicar."
-    ],
-
-    expresion: [
-        "🎭 ¡Actor por un día! Representa una emoción sin hablar. ¿Puede alguien adivinarla?",
-
-        "🎤 ¡Cuenta una historia! Inventa una aventura que tenga un personaje, un problema y una solución.",
-
-        "🗣️ ¡Tu voz importa! Explica algo que te entusiasme durante un minuto, sin preocuparte por hacerlo perfecto.",
-
-        "🎨 ¡Expresión sin palabras! Comunica una idea mediante dibujos o movimientos.",
-
-        "🌟 ¡Descubre tus fortalezas! Piensa en tres cosas que disfrutas hacer, aunque todavía estés aprendiendo.",
-
-        "💛 ¡Reto de confianza! Recuerda algo que antes te costaba y ahora haces con mayor facilidad."
-    ]
-
-};
-
+/* =========================================================
+   CHAT INTELIGENTE PENGUICH
+   Árbol local + Gemini mediante chat_api.php
+   ========================================================= */
 
 const chatMessages = $("chatMessages");
+const chatForm = $("chatForm");
+const chatInput = $("chatInput");
+
+let chatProcesando = false;
 
 function addChatMessage(text, who) {
-    const row = make("div", "", "pg-chat-message pg-" + who);
-    const avatar = make("span", who === "bot" ? "🐧" : "🙂",
-                        "pg-chat-avatar");
-    const bubble = make("div", text, "pg-chat-bubble");
+    const row = document.createElement("div");
+    row.className = "pg-chat-message pg-" + who;
+
+    const avatar = document.createElement("span");
+    avatar.className = "pg-chat-avatar";
+    avatar.textContent = who === "bot" ? "🐧" : "🙂";
+
+    const bubble = document.createElement("div");
+    bubble.className = "pg-chat-bubble";
+    bubble.textContent = text;
 
     row.append(avatar, bubble);
-    chatMessages.append(row);
+    chatMessages.appendChild(row);
+
     chatMessages.scrollTop = chatMessages.scrollHeight;
 
-    // No se almacena el historial del chat.
+    return row;
 }
 
-function chooseResponse(topic) {
-    const options = chatTopics[topic];
-    return options[Math.floor(Math.random() * options.length)];
+function mostrarPensando() {
+    const row = addChatMessage(
+        "🐧 Estoy pensando...",
+        "bot"
+    );
+
+    row.id = "penguichPensando";
+    return row;
 }
 
+function eliminarPensando() {
+    const elemento = document.getElementById(
+        "penguichPensando"
+    );
 
-function detectTopic(text) {
-
-    const value = text
-        .toLowerCase()
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "");
-
-    if (/deporte|futbol|basquet|correr|saltar|pelota|equilibrio|coordinacion|agilidad|movimiento/.test(value)) {
-        return "deportes";
+    if (elemento) {
+        elemento.remove();
     }
-
-    if (/arte|dibujar|pintar|crear|inventar|disenar|imaginacion|manualidad|construir/.test(value)) {
-        return "arte";
-    }
-
-    if (/estrategia|ajedrez|logica|rompecabezas|resolver|planear|juego de mesa|patron/.test(value)) {
-        return "estrategia";
-    }
-
-    if (/musica|cantar|ritmo|bailar|instrumento|sonido|cancion/.test(value)) {
-        return "musica";
-    }
-
-    if (/explorar|naturaleza|ciencia|experimento|investigar|descubrir|observar|animales|plantas/.test(value)) {
-        return "exploracion";
-    }
-
-    if (/lider|equipo|ayudar|organizar|colaborar|companeros|amistad/.test(value)) {
-        return "liderazgo";
-    }
-
-    if (/memoria|recordar|memorizar|aprender|estudiar|retener|olvidar|informacion|concentracion/.test(value)) {
-        return "memoria";
-    }
-
-    if (/hablar|expresar|actuar|teatro|confianza|timidez|historia|emociones|sentimientos/.test(value)) {
-        return "expresion";
-    }
-
-    return null;
 }
 
+function bloquearChat(bloquear) {
+    chatProcesando = bloquear;
 
-function replyToChat(text, forcedTopic = null) {
+    chatInput.disabled = bloquear;
+
+    const botonEnviar = chatForm.querySelector(
+        'button[type="submit"]'
+    );
+
+    if (botonEnviar) {
+        botonEnviar.disabled = bloquear;
+        botonEnviar.textContent = bloquear
+            ? "Pensando..."
+            : "Enviar ➤";
+    }
+
+    document.querySelectorAll("[data-chat]").forEach(btn => {
+        btn.disabled = bloquear;
+    });
+}
+
+async function replyToChat(text, forcedTopic = null) {
+
+    if (chatProcesando) {
+        return;
+    }
+
+    text = String(text).trim();
+
+    if (!text) {
+        return;
+    }
+
     addChatMessage(text, "user");
 
-    const topic = forcedTopic || detectTopic(text);
+    bloquearChat(true);
+    mostrarPensando();
 
-    const response = topic
-        ? chooseResponse(topic)
-       : "🐧 ¡Qué interesante lo que me cuentas! Podemos explorar deportes, arte, música, estrategia, naturaleza, liderazgo, memoria o expresión. Elige una aventura y descubrirás actividades para desarrollar nuevas habilidades. 💚";
-    addChatMessage(response, "bot");
+    try {
+
+        const response = await fetch("chat_api.php", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            credentials: "same-origin",
+            body: JSON.stringify({
+                mensaje: text,
+                tema: forcedTopic
+            })
+        });
+
+        const data = await response.json();
+
+        eliminarPensando();
+
+        if (!response.ok || !data.ok) {
+            throw new Error(
+                data.respuesta ||
+                "No pude procesar tu mensaje."
+            );
+        }
+
+        addChatMessage(data.respuesta, "bot");
+
+    } catch (error) {
+
+        eliminarPensando();
+
+        console.error("Error del chat:", error);
+
+        addChatMessage(
+            "🐧 ¡Ups! Tengo un pequeño problema para responder. " +
+            "Podemos intentarlo otra vez. 💚",
+            "bot"
+        );
+
+    } finally {
+
+        bloquearChat(false);
+        chatInput.focus();
+
+    }
 }
 
-$("chatForm").addEventListener("submit", e => {
+/* ENVIAR MENSAJES ESCRITOS */
+
+chatForm.addEventListener("submit", function(e) {
+
     e.preventDefault();
 
-    const input = $("chatInput");
-    const text = input.value.trim();
+    if (chatProcesando) {
+        return;
+    }
 
-    if (!text) return;
+    const texto = chatInput.value.trim();
 
-    input.value = "";
-    replyToChat(text.slice(0, 250));
+    if (!texto) {
+        return;
+    }
+
+    chatInput.value = "";
+
+    replyToChat(texto.slice(0, 250));
+
 });
+
+/* BOTONES DE ACTIVIDADES */
 
 document.querySelectorAll("[data-chat]").forEach(btn => {
-    btn.addEventListener("click", () => {
-        const topic = btn.dataset.chat;
-        replyToChat(btn.textContent.trim(), topic);
+
+    btn.addEventListener("click", function() {
+
+        if (chatProcesando) {
+            return;
+        }
+
+        const tema = btn.dataset.chat;
+        const texto = btn.textContent.trim();
+
+        replyToChat(texto, tema);
+
     });
+
 });
+
+/* MENSAJE DE BIENVENIDA */
+
+console.log(
+    "🐧 Chat inteligente de Penguich preparado."
+);
+
 
 /* LABORATORIO CREATIVO */
 const ideas = [
