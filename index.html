@@ -1,17 +1,22 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>penguich - Iniciar Sesión</title>
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+  <title>Penguich | Bienvenido</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
 
-  <!-- BARRA SUPERIOR DE ACCESIBILIDAD Y DALTONISMO -->
+<body class="penguich-auth">
+
+  <!-- BARRA DE ACCESIBILIDAD -->
   <div class="accessibility-bar">
     <label for="color-filter">👁️ Filtro:</label>
+
     <select id="color-filter" onchange="changeColorFilter(this.value)">
       <option value="normal">Estándar</option>
       <option value="protanopia">Protanopía</option>
@@ -20,42 +25,70 @@
     </select>
   </div>
 
-  <!-- ELEMENTOS FLOTANTES DECORATIVOS -->
+  <!-- DECORACIONES -->
   <div class="floating-element fe-1">⭐</div>
   <div class="floating-element fe-2">🎨</div>
   <div class="floating-element fe-3">🚀</div>
   <div class="floating-element fe-4">💡</div>
-  <div class="floating-element fe-5">🎒</div>
-  <div class="floating-element fe-6">✏️</div>
 
-  <!-- CONTENEDOR PRINCIPAL DEL LOGIN -->
-  <div class="login-container">
-    
-    <div class="login-header">
-      <div class="app-icon">🐧</div>
-      <h1>penguich</h1>
-      <p>Descubre tu verdadero potencial</p>
+  <!-- INICIO -->
+  <main class="penguich-welcome">
+
+    <img
+      src="img/Penguich sobre un arcoíris pastel.png"
+      alt="Mascota de Penguich"
+      class="penguich-mascot"
+    >
+
+    <h1>Penguich</h1>
+
+    <p>¡Aprende, descubre y brilla a tu ritmo!</p>
+
+    <div class="penguich-buttons">
+
+      <!-- INICIAR SESIÓN -->
+      <a
+        href="conexion.php?modo=login"
+        class="penguich-btn btn-login"
+      >
+        🚀 Iniciar sesión
+      </a>
+
+      <!-- CREAR CUENTA -->
+      <a
+        href="conexion.php?modo=registro"
+        class="penguich-btn btn-register"
+      >
+        ⭐ Crear cuenta
+      </a>
+
     </div>
 
-    <!-- BOTONES INICIALES (Llevan a login.php para mostrar los campos) -->
-    <div style="display: flex; flex-direction: column; gap: 15px; margin-top: 20px;">
-      <a href="login.php?modo=login" class="btn-submit" style="text-align: center; text-decoration: none; display: block;">
-        Iniciar Sesión
-      </a>
-      <a href="login.php?modo=registro" class="btn-crear-cuenta" style="text-align: center; text-decoration: none; display: block; padding: 12px; font-weight: 800;">
-        Crear Cuenta Nueva
-      </a>
-    </div>
-
-  </div>
+  </main>
 
   <script>
     function changeColorFilter(mode) {
-      document.body.className = ''; 
+
+      document.body.classList.remove(
+        'protanopia',
+        'deuteranopia',
+        'tritanopia'
+      );
+
       if (mode !== 'normal') {
         document.body.classList.add(mode);
       }
+
+      localStorage.setItem('penguichFiltro', mode);
     }
+
+    const filtro =
+      localStorage.getItem('penguichFiltro') || 'normal';
+
+    document.getElementById('color-filter').value = filtro;
+
+    changeColorFilter(filtro);
   </script>
+
 </body>
 </html>
