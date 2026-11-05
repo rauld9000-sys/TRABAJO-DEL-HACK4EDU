@@ -1,4 +1,3 @@
-
 <?php
 declare(strict_types=1);
 
@@ -8,17 +7,17 @@ header('Content-Type: application/json; charset=utf-8');
 header('Cache-Control: no-store');
 header('X-Content-Type-Options: nosniff');
 
-function responder(
+function responderChat(
     bool $ok,
-    string $respuesta,
+    string $mensaje,
     string $origen = 'sistema',
     int $codigo = 200
-): never {
+): void {
     http_response_code($codigo);
 
     echo json_encode([
         'ok' => $ok,
-        'respuesta' => $respuesta,
+        'respuesta' => $mensaje,
         'origen' => $origen
     ], JSON_UNESCAPED_UNICODE);
 
@@ -26,11 +25,11 @@ function responder(
 }
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    responder(false, 'Método no permitido.', 'error', 405);
+    responderChat(false, 'Método no permitido.', 'error', 405);
 }
 
 if (!isset($_SESSION['usuario'])) {
-    responder(
+    responderChat(
         false,
         'Tu sesión terminó. Inicia sesión nuevamente.',
         'error',
@@ -38,42 +37,43 @@ if (!isset($_SESSION['usuario'])) {
     );
 }
 
-// Comprobar origen cuando el navegador lo proporciona.
 $origen = $_SERVER['HTTP_ORIGIN'] ?? '';
 
 if ($origen !== '') {
-    $hostOrigen = parse_url($origen, PHP_URL_HOST);
-    $hostActual = explode(':', $_SERVER['HTTP_HOST'] ?? '')[0];
+    $origenHost = parse_url($origen, PHP_URL_HOST);
+    $hostActual = $_SERVER['HTTP_HOST'] ?? '';
+    $hostActual = parse_url('http://' . $hostActual, PHP_URL_HOST);
 
-    if ($hostOrigen !== $hostActual) {
-        responder(false, 'Origen no autorizado.', 'error', 403);
+    if ($origenHost !== $hostActual) {
+        responderChat(false, 'Origen no autorizado.', 'error', 403);
     }
 }
 
-$tipo = $_SERVER['CONTENT_TYPE'] ?? '';
-
-if (!str_contains(strtolower($tipo), 'application/json')) {
-    responder(false, 'Se requiere JSON.', 'error', 415);
+if (!str_contains(
+    strtolower($_SERVER['CONTENT_TYPE'] ?? ''),
+    'application/json'
+)) {
+    responderChat(false, 'Formato no válido.', 'error', 415);
 }
 
 $entrada = file_get_contents('php://input', false, null, 0, 12000);
 $datos = json_decode($entrada ?: '', true);
 
 if (!is_array($datos)) {
-    responder(false, 'Solicitud incorrecta.', 'error', 400);
+    responderChat(false, 'Solicitud incorrecta.', 'error', 400);
 }
 
 $mensaje = $datos['mensaje'] ?? '';
 $tema = $datos['tema'] ?? null;
 
 if (!is_string($mensaje)) {
-    responder(false, 'Mensaje no válido.', 'error', 400);
+    responderChat(false, 'Mensaje incorrecto.', 'error', 400);
 }
 
 $mensaje = trim($mensaje);
 
 if ($mensaje === '' || mb_strlen($mensaje, 'UTF-8') > 500) {
-    responder(
+    responderChat(
         false,
         'Escribe un mensaje de hasta 500 caracteres.',
         'error',
@@ -85,58 +85,53 @@ if (!is_string($tema)) {
     $tema = null;
 }
 
-$temasPermitidos = [
+$temas = [
     'deportes', 'arte', 'estrategia', 'musica',
     'exploracion', 'liderazgo', 'memoria', 'expresion'
 ];
 
-if (!in_array($tema, $temasPermitidos, true)) {
+if (!in_array($tema, $temas, true)) {
     $tema = null;
 }
 
-// Límite básico de solicitudes por sesión.
+// Límite básico para evitar consultas excesivas.
 $ahora = time();
 
-if (!isset($_SESSION['chat_limite'])
-    || !is_array($_SESSION['chat_limite'])) {
-    $_SESSION['chat_limite'] = [];
-}
-
-$_SESSION['chat_limite'] = array_values(array_filter(
-    $_SESSION['chat_limite'],
-    static fn($t) => is_int($t) && $t > $ahora - 60
+$_SESSION['chat_tiempos'] = array_values(array_filter(
+    $_SESSION['chat_tiempos'] ?? [],
+    fn($t) => is_int($t) && $t > $ahora - 60
 ));
 
-if (count($_SESSION['chat_limite']) >= 20) {
-    responder(
+if (count($_SESSION['chat_tiempos']) >= 20) {
+    responderChat(
         false,
-        '🐧 Vamos a descansar un momento antes de seguir.',
+        '🐧 Vamos a descansar un momento antes de continuar.',
         'limite',
         429
     );
 }
 
-$_SESSION['chat_limite'][] = $ahora;
+$_SESSION['chat_tiempos'][] = $ahora;
 
 require_once __DIR__ . '/chat_tree.php';
 require_once __DIR__ . '/ai_fallback.php';
 
-// Primero se intenta responder sin consumir API.
-$respuestaLocal = penguichRespuestaLocal($mensaje, $tema);
+// Primero responder localmente.
+$respuesta = penguichRespuestaLocal($mensaje, $tema);
 
-if ($respuestaLocal !== null) {
-    responder(true, $respuestaLocal, 'local');
+if ($respuesta !== null) {
+    responderChat(true, $respuesta, 'local');
 }
 
-// Historial corto guardado temporalmente en sesión.
-$historial = $_SESSION['penguich_historial'] ?? [];
-
-if (!is_array($historial)) {
-    $historial = [];
-}
-
+// Si no hay respuesta local, consultar Gemini.
 try {
-    $respuestaIA = penguichGemini($mensaje, $historial);
+    $historial = $_SESSION['penguich_historial'] ?? [];
+
+    if (!is_array($historial)) {
+        $historial = [];
+    }
+
+    $respuesta = penguichGemini($mensaje, $historial);
 
     $historial[] = [
         'role' => 'user',
@@ -145,25 +140,23 @@ try {
 
     $historial[] = [
         'role' => 'model',
-        'text' => $respuestaIA
+        'text' => $respuesta
     ];
 
-    $_SESSION['penguich_historial'] = array_slice(
-        $historial,
-        -8
-    );
+    $_SESSION['penguich_historial'] = array_slice($historial, -8);
 
-    responder(true, $respuestaIA, 'gemini');
+    responderChat(true, $respuesta, 'gemini');
 
 } catch (Throwable $e) {
 
-    error_log('Penguich Chat: ' . $e->getMessage());
+    // El error técnico se guarda en el servidor.
+    error_log('Penguich Gemini: ' . $e->getMessage());
 
-    responder(
-        true,
-        '🐧 Ahora mismo no puedo consultar mis respuestas especiales, '
-        . 'pero podemos seguir aprendiendo. '
-        . '¿Quieres explorar arte, memoria, música o ciencia?',
-        'respaldo'
+    responderChat(
+        false,
+        '🐧 No pude conectarme con mis respuestas inteligentes. '
+        . 'Podemos intentarlo nuevamente en un momento. 💚',
+        'error',
+        503
     );
 }
